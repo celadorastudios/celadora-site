@@ -3,6 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- PostHog -->
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Fi Di init Ji Xi Tr Ki tn Zi capture calculateEventProperties ln register register_once register_for_session unregister unregister_for_session dn getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync cn identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty un sn createPersonProfile setInternalOrTestUser hn Wi pn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing rn debug Er it getPageViewId captureTraceFeedback captureTraceMetric Ui".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_rG8EyAG2i9JPyBVi7fUqxYpy5ZqqoqjKJXXqL3TZozgt', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-05-30',
+        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+    })
+</script>
+<!-- End PostHog -->
 <title>Celadora Studios — Claude-o-Meter</title>
 <meta name="description" content="Claude-o-Meter: a private macOS menu-bar app that tracks your Claude Code spend in real time.">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -42,9 +52,9 @@
     </svg>
     Celadora Studios
   </span>
-  <a href="#product">Claude-o-Meter</a>
-  <a href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener">GitHub</a>
-  <a class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">Get the app</a>
+  <a id="nav-product-link" data-attr="nav-product-link" href="#product">Claude-o-Meter</a>
+  <a id="nav-github-link" data-attr="nav-github-link" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener">GitHub</a>
+  <a id="nav-cta-get-app" data-attr="nav-cta-get-app" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">Get the app</a>
 </nav>
 
 <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
@@ -57,8 +67,8 @@
     </h1>
     <p style="font-size: 17px; line-height: 28px; max-width: 58ch; margin: 34px 0 0; color: var(--color-text);">Claude-o-Meter is a tiny macOS menu-bar app that watches your Claude Code spend live: today, this month, per model. It tells you, in plain language, where the money is going and how to spend less of it.</p>
     <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
-      <a class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">View on GitHub</a>
-      <a class="btn btn-ghost" href="#product" style="text-decoration: none;">See what it does</a>
+      <a id="hero-cta-github" data-attr="hero-cta-github" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">View on GitHub</a>
+      <a id="hero-see-features" data-attr="hero-see-features" class="btn btn-ghost" href="#product" style="text-decoration: none;">See what it does</a>
     </div>
   </section>
 
@@ -220,7 +230,7 @@
     <h3 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; line-height: 28px; margin: 0;">Put a meter on it</h3>
     <p style="font-size: 15.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 20px 0 0; max-width: 58ch;">Claude-o-Meter is what Celadora Studios offers today. Grab it from GitHub and know your number by lunch.</p>
     <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
-      <a class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i class="ph-fill ph-github-logo"></i> deklin/claude-o-meter</a>
+      <a id="footer-cta-github" data-attr="footer-cta-github" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i class="ph-fill ph-github-logo"></i> deklin/claude-o-meter</a>
     </div>
   </section>
 
