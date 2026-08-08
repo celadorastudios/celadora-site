@@ -1,32 +1,15 @@
-/* Shared chrome for the legal pages (privacy, terms, accessibility).
-   Tokens come from the Nocturne design system; this file only adds the
-   long-form prose layout the marketing page doesn't need. */
-
-body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  margin: 0;
-}
+/* Long-form prose layout for the legal pages (privacy, terms, accessibility).
+   Loaded AFTER site.css, which owns the shared chrome: body, nav and footer.
+   Anything defined in both wins here by load order, so this file deliberately
+   restyles nothing it does not need to. It had a `body` rule that redefined
+   the background flat and lost the gradient every other page has, which is
+   why the backdrop used to change when you navigated to Privacy. */
 
 .legal-wrap {
   max-width: 760px;
   margin: 0 auto;
   padding: 0 clamp(20px, 5vw, 40px) 96px;
 }
-
-.legal-nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 22px clamp(20px, 5vw, 40px);
-  max-width: 760px;
-  margin: 0 auto;
-  font-size: 15px;
-}
-
-.legal-nav a { color: var(--color-text); text-decoration: none; }
-.legal-nav a:hover { color: var(--color-accent); }
 
 .legal-wrap h1 {
   font-family: var(--font-heading);

@@ -485,18 +485,3 @@ a:hover { color: var(--color-accent); }
   background: var(--color-accent);
   border-color: var(--color-accent);
 }
-
-/* Placeholder frame for a screenshot not yet supplied. Labelled as such so it
-   can never be mistaken for the real product. */
-.shot-frame {
-  border: 1px dashed var(--color-neutral-700);
-  border-radius: 16px;
-  background: color-mix(in srgb, black 30%, var(--color-bg));
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: clamp(40px, 9vw, 96px) 24px;
-  color: color-mix(in srgb, var(--color-text) 50%, transparent);
-  font-size: 14px;
-  line-height: 24px;
-}
