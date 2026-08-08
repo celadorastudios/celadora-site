@@ -63,11 +63,13 @@
     {
       "@type": "SoftwareApplication",
       "name": "partsbin",
-      "url": "https://celadora.net/partsbin.html",
+      "url": "https://partsbin.celadora.net/",
+      "sameAs": "https://celadora.net/partsbin.html",
       "applicationCategory": "DesignApplication",
       "operatingSystem": "Web browser",
-      "description": "Design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF.",
-      "publisher": { "@id": "https://celadora.net/#studio" }
+      "description": "Design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. Currently in beta.",
+      "publisher": { "@id": "https://celadora.net/#studio" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     }
   ]
 }
@@ -113,7 +115,7 @@
   <section id="products">
     <div class="section-head">
       <h2>What we make</h2>
-      <span class="count">2 tools · 1 available today</span>
+      <span class="count">2 tools · both live</span>
     </div>
 
     <div class="product-grid">
@@ -170,8 +172,8 @@
             <h3><a class="card-link" id="card-pb-title" data-attr="card-pb-title" href="/partsbin.html">partsbin</a></h3>
             <p class="tagline">Printable parts from parameters</p>
           </div>
-          <span class="status status-building">
-            <span class="dot" aria-hidden="true"></span>In development
+          <span class="status status-beta">
+            <span class="dot" aria-hidden="true"></span>Beta
           </span>
         </div>
 
@@ -183,16 +185,17 @@
         </p>
 
         <ul class="spec">
-          <li><span class="label">Platform</span><span>Browser</span></li>
+          <li><span class="label">Platform</span><span>Browser, nothing to install</span></li>
+          <li><span class="label">Price</span><span>Free</span></li>
           <li><span class="label">Exports</span><span>STEP · SCAD · STL · 3MF</span></li>
           <li><span class="label">Your data</span><span>Stays in your browser</span></li>
-          <li><span class="label">Home</span><span>partsbin.celadora.net</span></li>
         </ul>
 
         <div class="card-actions">
-          <a id="card-pb-details" data-attr="card-pb-details" class="btn btn-secondary" href="/partsbin.html">What it will do</a>
+          <a id="card-pb-open" data-attr="card-pb-open" class="btn btn-primary" href="https://partsbin.celadora.net" target="_blank" rel="noopener">Open partsbin</a>
+          <a id="card-pb-details" data-attr="card-pb-details" class="btn btn-ghost" href="/partsbin.html">What it does</a>
         </div>
-        <p class="note">Not released yet, and no date promised.</p>
+        <p class="note">In beta: it works and the exports are real, but expect rough edges.</p>
       </article>
 
     </div>

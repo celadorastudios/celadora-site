@@ -4,20 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>partsbin · Celadora Studios</title>
-<meta name="description" content="partsbin: design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. In development.">
+<meta name="description" content="partsbin: design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. Free, in your browser, now in beta.">
 <link rel="canonical" href="https://celadora.net/partsbin.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Celadora Studios">
 <meta property="og:url" content="https://celadora.net/partsbin.html">
 <meta property="og:title" content="partsbin · Celadora Studios">
-<meta property="og:description" content="partsbin: design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. In development.">
+<meta property="og:description" content="partsbin: design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. Free, in your browser, now in beta.">
 <meta property="og:image" content="https://celadora.net/assets/og-celadora.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Celadora Studios. Small tools that tell you the truth about your own work.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="partsbin · Celadora Studios">
-<meta name="twitter:description" content="partsbin: design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. In development.">
+<meta name="twitter:description" content="partsbin: design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. Free, in your browser, now in beta.">
 <meta name="twitter:image" content="https://celadora.net/assets/og-celadora.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -59,15 +59,21 @@
       format that survives, including a STEP file that opens in FreeCAD,
       Fusion, Onshape or SolidWorks as a real editable model.
     </p>
+    <div class="card-actions" style="margin-top: 28px;">
+      <a id="pb-hero-open" data-attr="pb-hero-open" class="btn btn-primary" href="https://partsbin.celadora.net" target="_blank" rel="noopener">Open partsbin</a>
+      <a id="pb-hero-what" data-attr="pb-hero-what" class="btn btn-ghost" href="#exports">See the exports</a>
+    </div>
     <p style="margin-top: 26px;">
-      <span class="status status-building">
-        <span class="dot" aria-hidden="true"></span>In development
+      <span class="status status-beta">
+        <span class="dot" aria-hidden="true"></span>Beta
       </span>
     </p>
-    <p class="note" style="max-width: 60ch;">
-      It isn't released yet and there's no date. When it ships it will live at
-      <strong>partsbin.celadora.net</strong>. This page describes what it does
-      today in development, not a promise about the finished thing.
+    <p class="note" style="max-width: 62ch;">
+      Live at <strong>partsbin.celadora.net</strong>, free, and nothing to
+      install. Beta means the parts it makes are real and the exports are
+      genuine B-rep solids, but expect rough edges, and check a part before you
+      trust it with load, heat or stress. See the
+      <a href="/terms.html">Terms of use</a>.
     </p>
   </section>
 
@@ -173,7 +179,7 @@
   </section>
 
   <section style="padding: 8px 0 72px;">
-    <div class="section-head"><h2>Exports</h2></div>
+    <div class="section-head" id="exports"><h2>Exports</h2></div>
     <ul class="spec" style="max-width: 640px; margin-bottom: 0;">
       <li><span><code>.step</code></span><span class="label">Editable solid, open in any CAD tool and keep modelling</span></li>
       <li><span><code>.scad</code></span><span class="label">Editable OpenSCAD source, parameter block intact</span></li>
@@ -189,10 +195,11 @@
       partsbin runs entirely in your browser. Designs are saved to your own
       browser storage, there is no account and no server-side copy, which also
       means clearing your browser data clears your designs, so export anything
-      you want to keep. It will carry its own privacy notice when it launches.
+      you want to keep. It carries its own privacy notice, which governs it in detail.
     </p>
     <div class="card-actions" style="margin-top: 26px;">
-      <a id="pb-cta-products" data-attr="pb-cta-products" class="btn btn-primary" href="/#products">See the other tools</a>
+      <a id="pb-cta-open" data-attr="pb-cta-open" class="btn btn-primary" href="https://partsbin.celadora.net" target="_blank" rel="noopener">Open partsbin</a>
+      <a id="pb-cta-products" data-attr="pb-cta-products" class="btn btn-ghost" href="/#products">See the other tools</a>
     </div>
   </section>
 
