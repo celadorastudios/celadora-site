@@ -198,6 +198,22 @@ for (const page of PAGES) {
   else if (desc[1].length < 50 || desc[1].length > 200) {
     fail('seo-description', `${page} description is ${desc[1].length} chars (want 50-200)`);
   }
+
+  /* Link previews. A share card is the first thing most people see of this
+   * site, and it fails silently: the page looks fine, the preview is blank,
+   * and nobody tells you. So the image has to exist on disk, not merely be
+   * named, and it needs alt text because previews are read aloud too. */
+  const og = src.match(/<meta property="og:image" content="https:\/\/celadora\.net(\/[^"]+)"/);
+  if (!og) fail('og-image', `${page} has no absolute og:image on celadora.net`);
+  else if (!exists(og[1].replace(/^\//, ''))) {
+    fail('og-image', `${page} points og:image at ${og[1]}, which is not in the repo`);
+  }
+  if (!/<meta property="og:image:alt" content="[^"]{20,}"/.test(src)) {
+    fail('og-image', `${page} has no meaningful og:image:alt`);
+  }
+  for (const tag of ['apple-touch-icon', 'theme-color']) {
+    if (!src.includes(tag)) fail('og-icons', `${page} is missing ${tag}`);
+  }
 }
 if (!exists('robots.txt')) fail('seo-robots', 'robots.txt is missing');
 else if (!read('robots.txt').includes(`Sitemap: ${SITE}/sitemap.xml`)) {
