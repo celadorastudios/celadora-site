@@ -205,20 +205,17 @@ else if (!read('robots.txt').includes(`Sitemap: ${SITE}/sitemap.xml`)) {
 }
 
 /* ---------------------------------------------------------------- rule 4d
- * GitHub links are mid-migration, and the two halves have different rules.
+ * Everything the site links to now lives under celadorastudios: the studio
+ * profile and every repo. NOT_YET_MOVED is the escape hatch for a repo that
+ * is still hosted elsewhere; it is empty because the migration is complete,
+ * and it should only ever be non-empty while a move is in flight.
  *
- *   - The bare PROFILE link is the studio's front door and must be
- *     github.com/celadorastudios, which exists today.
- *   - REPO links must point at wherever the code actually is. Moving them
- *     ahead of the code would 404 the product's own download button, so
- *     claude-o-meter stays under deklin until it is transferred.
- *
- * A link that is neither is almost certainly a copy-paste that will rot, so
- * it fails rather than being quietly tolerated. When the repo moves, add it
- * to MOVED and the old links start failing until they are all updated.
+ * A link that is neither the profile nor a celadorastudios repo is almost
+ * certainly a copy-paste that will rot, so it fails rather than being
+ * quietly tolerated.
  */
 const GITHUB_PROFILE = 'https://github.com/celadorastudios';
-const NOT_YET_MOVED = ['deklin/claude-o-meter'];
+const NOT_YET_MOVED = [];
 
 for (const file of FILES) {
   read(file).split('\n').forEach((line, i) => {
