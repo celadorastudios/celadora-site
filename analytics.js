@@ -24,6 +24,26 @@
   var POSTHOG_KEY = 'phc_rG8EyAG2i9JPyBVi7fUqxYpy5ZqqoqjKJXXqL3TZozgt';
   var POSTHOG_HOST = 'https://us.i.posthog.com';
   var CONSENT_KEY = 'celadora-analytics-consent';
+  var CF_TOKEN = 'cf54d1f7a85e4f868e264c4f6b7748fd';
+
+  /* Cloudflare Web Analytics, loaded from here rather than pasted into every
+     page. This is a static multi-page site: nothing is shared between page
+     loads, so each document has to load its own analytics, and six copies of
+     a token is six chances for one page to drift or a new page to ship
+     without it. One copy, and check-guardrails.mjs fails the build if a page
+     inlines its own.
+
+     Ungated on purpose, and the privacy policy says so: it is cookieless,
+     sets no identifier and cannot single anyone out, so it is not the kind of
+     tracking the consent banner asks about. PostHog is the gated one. */
+  function loadCloudflare() {
+    if (document.querySelector('script[data-cf-beacon]')) return;
+    var s = document.createElement('script');
+    s.defer = true;
+    s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    s.setAttribute('data-cf-beacon', JSON.stringify({ token: CF_TOKEN }));
+    document.head.appendChild(s);
+  }
   var POLICY_VERSION = '2026-08-08';
   var MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000;   // re-ask after a year
 
@@ -234,6 +254,11 @@
   }
 
   function init() {
+    loadCloudflare();
+
+    // The stored decision is per-origin, so it is read again on every page and
+    // a choice made anywhere is honoured everywhere. Granted keeps PostHog on
+    // without re-asking; denied keeps it off and stays silent.
     var state = readConsent();
     if (state === 'granted') loadPostHog();
     else if (state === null) showBanner();

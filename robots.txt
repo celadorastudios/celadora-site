@@ -1,0 +1,11 @@
+# celadora.net
+# Everything here is public marketing copy and public legal notices.
+# There is nothing to hide from a crawler and no login to protect.
+
+User-agent: *
+Allow: /
+
+# Vendored third-party libraries and fonts. Not content, no reason to index.
+Disallow: /vendor/
+
+Sitemap: https://celadora.net/sitemap.xml

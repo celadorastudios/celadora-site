@@ -10,8 +10,9 @@
     "check:privacy": "node scripts/check-privacy.mjs",
     "check:html": "html-validate \"*.html\"",
     "check:a11y": "pa11y-ci",
-    "check": "npm run check:guardrails && npm run check:html && npm run check:privacy && npm run check:gallery && npm run check:a11y",
-    "check:gallery": "node scripts/check-gallery.mjs"
+    "check": "npm run check:secrets && npm run check:guardrails && npm run check:html && npm run check:privacy && npm run check:gallery && npm run check:a11y",
+    "check:gallery": "node scripts/check-gallery.mjs",
+    "check:secrets": "node scripts/check-secrets.mjs"
   },
   "devDependencies": {
     "html-validate": "^9.7.1",

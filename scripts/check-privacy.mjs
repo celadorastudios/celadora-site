@@ -117,7 +117,74 @@ try {
     await page.close(); await page.__context.close();
   }
 
-  // 7. The contact address must survive with JavaScript disabled, because it is the
+  // 7. A decision made on ONE page must be honoured on ALL of them.
+  //
+  //    This is the check that matters on a static multi-page site. Every page
+  //    load is a fresh document that re-reads the stored choice, so a bug here
+  //    means a visitor who declined gets asked again on the next page, or
+  //    worse, gets tracked after saying no. Earlier checks SEED the choice;
+  //    these two make it the way a person would, by clicking, then navigate.
+  for (const [answer, label] of [['No thanks', 'declined'], ['Sure', 'granted']]) {
+    const context = browser.createBrowserContext
+      ? await browser.createBrowserContext()
+      : await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
+    const seen = [];
+    page.on('request', (r) => { if (/posthog/i.test(r.url())) seen.push(r.url()); });
+
+    await page.goto(BASE + '/', { waitUntil: 'networkidle2' });
+    await page.waitForSelector('.consent-banner', { timeout: 5000 });
+    await page.evaluate((want) => {
+      const b = [...document.querySelectorAll('.consent-banner button')]
+        .find((x) => x.textContent.trim() === want);
+      b.click();
+    }, answer);
+    await new Promise((r) => setTimeout(r, 400));
+
+    // Now walk the rest of the site as a real visitor would.
+    let reappeared = false;
+    for (const url of PAGES.slice(1)) {
+      await page.goto(BASE + url, { waitUntil: 'networkidle2' });
+      if (await page.$('.consent-banner')) reappeared = true;
+    }
+
+    check(`${label} on the home page is remembered across every other page`, !reappeared);
+
+    if (label === 'declined') {
+      check('declined: PostHog never contacted while browsing the whole site',
+            seen.length === 0, seen.slice(0, 2).join(', '));
+    } else {
+      check('granted: PostHog is active on later pages too', seen.length > 0);
+    }
+
+    // And the footer control must be able to reopen the choice anywhere.
+    await page.goto(BASE + '/terms.html', { waitUntil: 'networkidle2' });
+    await page.click('[data-consent-settings]');
+    await new Promise((r) => setTimeout(r, 300));
+    check(`${label}: cookie settings reopens the choice on a deep page`,
+          (await page.$('.consent-banner')) !== null);
+
+    await page.close();
+    await context.close();
+  }
+
+  // 8. Cloudflare's cookieless beacon is centralised in analytics.js, so
+  //    confirm every page still actually loads it.
+  for (const url of PAGES) {
+    const context = browser.createBrowserContext
+      ? await browser.createBrowserContext()
+      : await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
+    let beacon = false;
+    page.on('request', (r) => { if (/cloudflareinsights/i.test(r.url())) beacon = true; });
+    await page.goto(BASE + url, { waitUntil: 'networkidle2' });
+    await new Promise((r) => setTimeout(r, 500));
+    check(`Cloudflare beacon loads on ${url}`, beacon);
+    await page.close();
+    await context.close();
+  }
+
+  // 9. The contact address must survive with JavaScript disabled, because it is the
   //    channel for GDPR and CCPA rights requests.
   {
     const ctx = browser.createBrowserContext ? await browser.createBrowserContext() : await browser.createIncognitoBrowserContext();

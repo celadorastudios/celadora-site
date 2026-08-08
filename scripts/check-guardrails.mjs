@@ -159,6 +159,51 @@ for (const page of PAGES) {
   }
 }
 
+/* ---------------------------------------------------------------- rule 4b
+ * Analytics is per-page. This is a static multi-page site, so nothing carries
+ * between page loads: a page that forgets analytics.js is a page with no
+ * consent gate AND no traffic counted. The Cloudflare beacon now lives in
+ * analytics.js so there is one token, and pasting it back into a page would
+ * double-count and reintroduce the drift.
+ */
+for (const page of PAGES) {
+  if (/cloudflareinsights/.test(read(page))) {
+    fail('cf-beacon-centralised', `${page} inlines the Cloudflare beacon; it belongs in analytics.js`);
+  }
+}
+if (!/cloudflareinsights/.test(read('analytics.js'))) {
+  fail('cf-beacon-centralised', 'analytics.js no longer loads the Cloudflare beacon, so no page does');
+}
+
+/* ---------------------------------------------------------------- rule 4c
+ * SEO basics, which are easy to add once and easy to forget on page seven.
+ */
+const SITE = 'https://celadora.net';
+const sitemap = read('sitemap.xml');
+for (const page of PAGES) {
+  const src = read(page);
+  const url = page === 'index.html' ? '/' : '/' + page;
+
+  if (!src.includes(`<link rel="canonical" href="${SITE}${url}">`)) {
+    fail('seo-canonical', `${page} has no canonical pointing at ${SITE}${url}`);
+  }
+  for (const tag of ['og:title', 'og:description', 'og:image', 'og:url', 'twitter:card']) {
+    if (!src.includes(tag)) fail('seo-social', `${page} is missing ${tag}`);
+  }
+  if (!sitemap.includes(`<loc>${SITE}${url}</loc>`)) {
+    fail('seo-sitemap', `${page} is not listed in sitemap.xml`);
+  }
+  const desc = src.match(/<meta name="description" content="([^"]*)"/);
+  if (!desc) fail('seo-description', `${page} has no meta description`);
+  else if (desc[1].length < 50 || desc[1].length > 200) {
+    fail('seo-description', `${page} description is ${desc[1].length} chars (want 50-200)`);
+  }
+}
+if (!exists('robots.txt')) fail('seo-robots', 'robots.txt is missing');
+else if (!read('robots.txt').includes(`Sitemap: ${SITE}/sitemap.xml`)) {
+  fail('seo-robots', 'robots.txt does not point at the sitemap');
+}
+
 /* PostHog must never be initialised outside the consent gate. */
 for (const file of FILES.filter((f) => f !== 'analytics.js')) {
   if (/posthog\.init\s*\(/.test(read(file))) {

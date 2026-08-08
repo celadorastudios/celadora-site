@@ -5,17 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Celadora Studios · small tools that tell you the truth</title>
 <meta name="description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend; partsbin designs printable parts from parameters.">
+<link rel="canonical" href="https://celadora.net/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Celadora Studios">
+<meta property="og:url" content="https://celadora.net/">
+<meta property="og:title" content="Celadora Studios · small tools that tell you the truth">
+<meta property="og:description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend; partsbin designs printable parts from parameters.">
+<meta property="og:image" content="https://celadora.net/assets/og-celadora.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Celadora Studios. Small tools that tell you the truth about your own work.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Celadora Studios · small tools that tell you the truth">
+<meta name="twitter:description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend; partsbin designs printable parts from parameters.">
+<meta name="twitter:image" content="https://celadora.net/assets/og-celadora.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/styles.css">
 <link rel="stylesheet" href="/vendor/inter/inter.css">
 <link rel="stylesheet" href="site.css">
+<!-- Structured data. Describes the studio and its catalogue so a search engine
+     can tell that this is an organisation with products rather than one page
+     about one app. Keep the product list in step with the cards below. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://celadora.net/#studio",
+      "name": "Celadora Studios",
+      "url": "https://celadora.net/",
+      "email": "hello@celadora.net",
+      "logo": "https://celadora.net/favicon.svg",
+      "image": "https://celadora.net/assets/og-celadora.png",
+      "description": "Celadora Studios builds small, local-first tools for developers and makers.",
+      "sameAs": ["https://github.com/deklin", "https://ko-fi.com/celadorastudios"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://celadora.net/#site",
+      "url": "https://celadora.net/",
+      "name": "Celadora Studios",
+      "publisher": { "@id": "https://celadora.net/#studio" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Claude-o-Meter",
+      "url": "https://celadora.net/claude-o-meter.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS 14+",
+      "license": "https://opensource.org/licenses/MIT",
+      "description": "A macOS menu-bar app that reads the usage logs Claude Code writes on your Mac and turns them into live spend: today, this month, per model.",
+      "publisher": { "@id": "https://celadora.net/#studio" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "partsbin",
+      "url": "https://celadora.net/partsbin.html",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web browser",
+      "description": "Design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF.",
+      "publisher": { "@id": "https://celadora.net/#studio" }
+    }
+  ]
+}
+</script>
 <!-- Analytics + EU consent gate. PostHog starts opted out; analytics.js is the
      only thing that turns it on, and only if the visitor agrees. -->
 <script src="analytics.js"></script>
-<!-- Cloudflare Web Analytics -->
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf54d1f7a85e4f868e264c4f6b7748fd"}'></script>
-<!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 
