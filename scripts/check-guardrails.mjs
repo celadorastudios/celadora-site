@@ -204,6 +204,36 @@ else if (!read('robots.txt').includes(`Sitemap: ${SITE}/sitemap.xml`)) {
   fail('seo-robots', 'robots.txt does not point at the sitemap');
 }
 
+/* ---------------------------------------------------------------- rule 4d
+ * GitHub links are mid-migration, and the two halves have different rules.
+ *
+ *   - The bare PROFILE link is the studio's front door and must be
+ *     github.com/celadorastudios, which exists today.
+ *   - REPO links must point at wherever the code actually is. Moving them
+ *     ahead of the code would 404 the product's own download button, so
+ *     claude-o-meter stays under deklin until it is transferred.
+ *
+ * A link that is neither is almost certainly a copy-paste that will rot, so
+ * it fails rather than being quietly tolerated. When the repo moves, add it
+ * to MOVED and the old links start failing until they are all updated.
+ */
+const GITHUB_PROFILE = 'https://github.com/celadorastudios';
+const NOT_YET_MOVED = ['deklin/claude-o-meter'];
+
+for (const file of FILES) {
+  read(file).split('\n').forEach((line, i) => {
+    for (const m of line.matchAll(/https:\/\/github\.com\/([A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)?)/g)) {
+      const target = m[1];
+      if (m[0] === GITHUB_PROFILE) continue;              // the studio profile
+      if (NOT_YET_MOVED.includes(target)) continue;       // still hosted there
+      if (target.startsWith('celadorastudios/')) continue; // already moved
+      fail('github-account',
+           `${file}:${i + 1} links github.com/${target}; expected the celadorastudios profile, ` +
+           'a celadorastudios repo, or a repo listed in NOT_YET_MOVED');
+    }
+  });
+}
+
 /* PostHog must never be initialised outside the consent gate. */
 for (const file of FILES.filter((f) => f !== 'analytics.js')) {
   if (/posthog\.init\s*\(/.test(read(file))) {
