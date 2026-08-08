@@ -1,5 +1,11 @@
 /* Nocturne — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Inter is self-hosted from /vendor/inter/inter.css, which each page links
+   directly. The Google Fonts @import that used to live here sent every
+   visitor's IP to Google before any consent was possible — the fact pattern a
+   German court held to be a GDPR violation (LG München I, 3 O 17493/20),
+   precisely because self-hosting was available. Keep this line deleted; if you
+   regenerate this design system, re-apply the deletion and re-link the vendor
+   stylesheet. */
 
 :root {
   --color-bg: #161826;

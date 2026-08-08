@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessibility — Celadora Studios</title>
+<meta name="description" content="How accessible celadora.net and Celadora Studios apps are, what we're working on, and how to get help.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/styles.css">
+<link rel="stylesheet" href="/vendor/inter/inter.css">
+<link rel="stylesheet" href="legal.css">
+<script src="analytics.js"></script>
+<script src="contact.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf54d1f7a85e4f868e264c4f6b7748fd"}'></script>
+</head>
+<body>
+
+<nav class="legal-nav">
+  <a href="/" style="display:inline-flex;align-items:center;gap:10px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
+      <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round"></line>
+      <circle cx="12" cy="12" r="1.5" fill="var(--color-accent)"></circle>
+    </svg>
+    Celadora Studios
+  </a>
+</nav>
+
+<main class="legal-wrap">
+
+<h1>Accessibility</h1>
+<p class="legal-updated">Last updated: 8 August 2026</p>
+
+<p class="legal-lede">
+  We want everyone to be able to use what we build. Accessibility here is an
+  ongoing effort rather than a finished state: we measure the site against
+  <strong>WCAG 2.2 Level AA</strong>, work through what we find, and keep going.
+  This page says where things stand and how to get help if something blocks you.
+</p>
+
+<div class="legal-note">
+  <p>
+    <strong>If any part of this site or our apps isn't accessible to you, tell
+    us and we will get you the same information or function another way, at no
+    cost to you, and work with you on a fix.</strong>
+  </p>
+  <p>
+    Email <span data-contact-email>hello at celadora.net</span>. We aim to
+    acknowledge accessibility reports within five business days.
+  </p>
+</div>
+
+<h2>Where things stand</h2>
+<ul>
+  <li>
+    <strong>Contrast.</strong> The palette is built on a measured lightness
+    scale rather than picked by eye. Body text sits well above the AA threshold
+    against the dark background, and the purple accent clears AA for normal
+    text (5.46:1 on the page background).
+  </li>
+  <li>
+    <strong>Keyboard.</strong> Everything reachable by mouse is reachable by
+    keyboard, tab order follows the page, and interactive controls are real
+    <code>&lt;button&gt;</code> and <code>&lt;a&gt;</code> elements rather than
+    clickable divs. The consent banner can be dismissed with Escape.
+  </li>
+  <li>
+    <strong>Screen readers.</strong> Decorative graphics and icons are hidden
+    from assistive technology so they aren't announced as meaningless nodes.
+    Headings run in order, pages declare their language, and content sits in a
+    <code>&lt;main&gt;</code> landmark.
+  </li>
+  <li>
+    <strong>Zoom and small screens.</strong> Type is set in relative units with
+    fluid sizing, and layouts reflow rather than clipping.
+  </li>
+  <li>
+    <strong>No motion traps.</strong> Nothing autoplays, flashes or moves
+    without you asking it to.
+  </li>
+  <li>
+    <strong>Nothing loads from someone else's CDN.</strong> The typeface, icons
+    and scripts are served from this domain, so the site doesn't break when a
+    content delivery network is blocked, slow or unreachable — a common failure
+    mode on restricted networks and with content blockers. The privacy, terms
+    and accessibility pages are additionally plain HTML and work with
+    JavaScript switched off entirely.
+  </li>
+</ul>
+
+<h2>What we're working on</h2>
+<p>
+  Being specific is more useful than a blanket claim, so here is what is
+  actively on the list:
+</p>
+<ul>
+  <li>
+    <strong>A text equivalent for the product illustration.</strong> The
+    menu-bar mockup on the home page — its chart, spend figures and insight
+    cards — is a decorative picture built from sample data, and a screen reader
+    gets no equivalent of the chart itself. The surrounding prose is written to
+    carry the same information, and we're working on a proper text alternative.
+  </li>
+  <li>
+    <strong>Testing Claude-o-Meter with VoiceOver.</strong> It is a SwiftUI
+    menu-bar app, so it inherits a reasonable baseline from Apple's controls,
+    but we have not yet verified it, and its charts likely need the same text
+    equivalent as the illustration above.
+  </li>
+  <li>
+    <strong>Reducing reliance on colour alone in the app.</strong> The
+    Claude-o-Meter menu-bar readout turns red past your daily budget, and the
+    history chart separates models by colour. We're adding a second, non-colour
+    cue for both.
+  </li>
+</ul>
+
+<h2>How we check</h2>
+<p>
+  Assessment is our own — a mix of manual keyboard and screen-reader testing
+  and measured contrast checks against the WCAG 2.2 AA thresholds. There has
+  been no third-party audit, and self-assessment misses things, which is
+  exactly why the offer at the top of this page matters more than the list
+  above.
+</p>
+
+<h2>Tell us what's broken</h2>
+<p>
+  A specific report ("the chart is unreadable in VoiceOver on macOS 15") is
+  worth far more than a general one, and it goes to the front of the queue.
+  Email <span data-contact-email>hello at celadora.net</span>, or message us
+  through
+  <a href="https://ko-fi.com/celadorastudios" target="_blank" rel="noopener">Ko-fi</a>
+  if you prefer. We'll tell you honestly what we can do and when — and in the
+  meantime we'll get you the information or function another way.
+</p>
+
+</main>
+
+<footer class="legal-footer">
+  <span>Celadora Studios</span>
+  <a href="/">Home</a>
+  <a href="/privacy.html">Privacy</a>
+  <a href="/terms.html">Terms</a>
+  <a href="/accessibility.html">Accessibility</a>
+  <button type="button" data-consent-settings>Cookie settings</button>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "void-style": "off",
+    "no-inline-style": "off",
+    "attribute-boolean-style": "off",
+    "require-sri": "off",
+    "long-title": "off",
+    "wcag/h30": "off",
+    "no-trailing-whitespace": "off"
+  },
+  "elements": [
+    "html5",
+    {
+      "x-dc": { "flow": true },
+      "sc-if": { "flow": true, "permittedContent": ["@flow"] },
+      "helmet": {
+        "flow": true,
+        "permittedContent": ["@flow", "style", "link", "script", "meta", "title", "base"]
+      }
+    }
+  ]
+}

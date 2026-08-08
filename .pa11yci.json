@@ -1,0 +1,17 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-dev-shm-usage"]
+    },
+    "hideElements": ".consent-banner",
+    "ignore": []
+  },
+  "urls": [
+    "http://localhost:8791/",
+    "http://localhost:8791/privacy.html",
+    "http://localhost:8791/terms.html",
+    "http://localhost:8791/accessibility.html"
+  ]
+}

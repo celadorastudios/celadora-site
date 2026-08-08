@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- PostHog -->
-<script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Fi Di init Ji Xi Tr Ki tn Zi capture calculateEventProperties ln register register_once register_for_session unregister unregister_for_session dn getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync cn identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty un sn createPersonProfile setInternalOrTestUser hn Wi pn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing rn debug Er it getPageViewId captureTraceFeedback captureTraceMetric Ui".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_rG8EyAG2i9JPyBVi7fUqxYpy5ZqqoqjKJXXqL3TZozgt', {
-        api_host: 'https://us.i.posthog.com',
-        defaults: '2026-05-30',
-        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-    })
-</script>
-<!-- End PostHog -->
+<!-- Analytics + EU consent gate. PostHog starts opted out; analytics.js
+     is the only thing that turns it on, and only if the visitor agrees. -->
+<script src="analytics.js"></script>
 <title>Celadora Studios — Claude-o-Meter</title>
 <meta name="description" content="Claude-o-Meter: a private macOS menu-bar app that tracks your Claude Code spend in real time.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<!-- Self-hosted runtime. support.js consults window.__resources before falling
+     back to its hard-coded unpkg URLs (see cdnScriptFor in support.js), so this
+     map is the supported way to keep the page off a third-party CDN without
+     editing generated code. Two reasons it matters: the page renders blank if
+     unpkg is unreachable, and every visit otherwise hands a visitor's IP to a
+     third party before they've agreed to anything. Must run before support.js. -->
+<script>
+  window.__resources = {
+    "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "/vendor/react/react.production.min.js",
+    "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "/vendor/react/react-dom.production.min.js"
+  };
+</script>
 <script src="./support.js"></script>
+<link rel="stylesheet" href="/vendor/inter/inter.css">
 <!-- Cloudflare Web Analytics -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf54d1f7a85e4f868e264c4f6b7748fd"}'></script>
 <!-- End Cloudflare Web Analytics -->
@@ -27,8 +33,8 @@
 <helmet>
   <link rel="stylesheet" href="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/styles.css">
   <script src="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/_ds_bundle.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="/vendor/phosphor/regular/style.css">
+  <link rel="stylesheet" href="/vendor/phosphor/fill/style.css">
   <style>
     body {
       margin: 0;
@@ -40,6 +46,13 @@
     }
     a { color: var(--color-accent-300); text-decoration: none; }
     a:hover { color: var(--color-accent); }
+    /* WCAG 1.4.1: footer links sit in muted text and were distinguished by
+       colour alone at ~2.3:1 against it, under the 3:1 threshold. Underline
+       them rather than retune the palette. */
+    footer a { text-decoration: underline; }
+    .legal-consent-note { font-size: 12px; line-height: 20px; margin: 12px 0 0;
+      color: color-mix(in srgb, var(--color-text) 60%, transparent); }
+    .legal-consent-note a { text-decoration: underline; }
   </style>
 </helmet>
 
@@ -57,19 +70,23 @@
   <a id="nav-cta-get-app" data-attr="nav-cta-get-app" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">Get the app</a>
 </nav>
 
-<div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
+<main style="display: block; max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
 
   <section style="padding: 112px 0 84px;">
     <span style="display: block; font-size: 13px; line-height: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent); font-feature-settings: 'tnum' 1; margin: 0 0 14px;">A Celadora Studios tool</span>
     <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(44px, 6.4vw, 88px); line-height: 1.11; letter-spacing: -0.015em; margin: 0 0 0 -0.06em;">
       <span style="display: block;">Know what Claude costs.</span>
-      <span style="display: block;">To the cent, in your menu bar.</span>
+      <span style="display: block;">Live, in your menu bar.</span>
     </h1>
     <p style="font-size: 17px; line-height: 28px; max-width: 58ch; margin: 34px 0 0; color: var(--color-text);">Claude-o-Meter is a tiny macOS menu-bar app that watches your Claude Code spend live: today, this month, per model. It tells you, in plain language, where the money is going and how to spend less of it.</p>
     <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
       <a id="hero-cta-github" data-attr="hero-cta-github" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">View on GitHub</a>
       <a id="hero-see-features" data-attr="hero-see-features" class="btn btn-ghost" href="#product" style="text-decoration: none;">See what it does</a>
     </div>
+    <p class="legal-consent-note">
+      Figures are estimates read from your own logs, not a bill — see the
+      <a href="/terms.html">Terms of use</a>, which you accept by downloading.
+    </p>
   </section>
 
   <section id="product" style="display: flex; flex-wrap: wrap; gap: 56px clamp(24px, 5vw, 96px); align-items: flex-start; padding: 56px 0 84px;">
@@ -83,15 +100,19 @@
     <div style="flex: 0 1 400px; min-width: 320px; background: color-mix(in srgb, black 55%, var(--color-bg)); border: 1px solid var(--color-neutral-700); border-radius: 16px; padding: 18px 18px 14px; box-shadow: var(--shadow-lg); font-feature-settings: 'tnum' 1;">
 
       <div style="display: flex; align-items: center; gap: 10px;">
+        <!-- Our own accent, deliberately not Anthropic's brand orange
+             (#d97757). Using their colour on a glyph beside a product name
+             containing "Claude" weakens the nominative-fair-use position the
+             Terms rely on; the mark is ours, so the colour should be too. -->
         <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
-          <rect x="2" y="5" width="16" height="10" rx="2" fill="#d97757"></rect>
-          <rect x="5.5" y="8" width="2.5" height="2.5" fill="#1a1108"></rect>
-          <rect x="12" y="8" width="2.5" height="2.5" fill="#1a1108"></rect>
-          <rect x="4" y="2.5" width="2" height="3" fill="#d97757"></rect>
-          <rect x="14" y="2.5" width="2" height="3" fill="#d97757"></rect>
+          <rect x="2" y="5" width="16" height="10" rx="2" fill="#9184d9"></rect>
+          <rect x="5.5" y="8" width="2.5" height="2.5" fill="#161826"></rect>
+          <rect x="12" y="8" width="2.5" height="2.5" fill="#161826"></rect>
+          <rect x="4" y="2.5" width="2" height="3" fill="#9184d9"></rect>
+          <rect x="14" y="2.5" width="2" height="3" fill="#9184d9"></rect>
         </svg>
         <span style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--color-text);">Claude-o-Meter</span>
-        <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">0.6.x <i class="ph-fill ph-check-circle" style="color: #34c26b; font-size: 15px;"></i></span>
+        <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">0.6.x <i class="ph-fill ph-check-circle" aria-hidden="true" style="color: #34c26b; font-size: 15px;"></i></span>
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; background: color-mix(in srgb, white 5%, transparent); border-radius: 10px; padding: 14px 16px; margin-top: 16px;">
@@ -111,7 +132,11 @@
 
       <div style="display: flex; align-items: center; margin-top: 16px;">
         <div style="display: inline-flex; background: color-mix(in srgb, white 8%, transparent); border-radius: 8px; padding: 3px;">
-          <span style="font-size: 13.5px; font-weight: 600; color: white; background: #2f7cf6; border-radius: 6px; padding: 4px 14px;">Daily</span>
+          <!-- Darker than the chart-bar blue (#2f7cf6) on purpose: white text
+               on that shade is 3.94:1, under the 4.5:1 WCAG 1.4.3 minimum.
+               This one is 5.5:1. The bars keep the lighter blue — they carry
+               no text. -->
+          <span style="font-size: 13.5px; font-weight: 600; color: white; background: #1d63d6; border-radius: 6px; padding: 4px 14px;">Daily</span>
           <span style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 70%, transparent); padding: 4px 14px;">Monthly</span>
         </div>
         <span style="margin-left: auto; font-size: 13px; font-weight: 600; color: #e5a54b; background: color-mix(in srgb, #e5a54b 12%, transparent); border-radius: 7px; padding: 4px 10px;">↗ 38%</span>
@@ -155,9 +180,9 @@
       </div>
 
       <div style="display: flex; align-items: center; gap: 10px; background: color-mix(in srgb, #2f7cf6 8%, transparent); border: 1px solid color-mix(in srgb, #2f7cf6 20%, transparent); border-radius: 9px; padding: 10px 12px; margin-top: 16px; font-size: 14px;">
-        <i class="ph ph-folder" style="color: #2f7cf6; font-size: 17px;"></i>
+        <i class="ph ph-folder" aria-hidden="true" style="color: #2f7cf6; font-size: 17px;"></i>
         <span style="color: color-mix(in srgb, var(--color-text) 80%, transparent);">Top project: <span style="color: #4d94ff; font-weight: 600;">aurora-ui</span> ($1,204.55)</span>
-        <i class="ph ph-caret-right" style="margin-left: auto; color: color-mix(in srgb, var(--color-text) 45%, transparent);"></i>
+        <i class="ph ph-caret-right" aria-hidden="true" style="margin-left: auto; color: color-mix(in srgb, var(--color-text) 45%, transparent);"></i>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
@@ -188,7 +213,7 @@
       <div style="display: flex; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, white 8%, transparent); font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">
         Updated 12 sec ago
         <span style="margin-left: auto; display: inline-flex; gap: 14px; font-size: 17px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
-          <i class="ph-fill ph-github-logo"></i><i class="ph ph-gear"></i><i class="ph ph-arrow-clockwise"></i><i class="ph ph-power"></i>
+          <i class="ph-fill ph-github-logo" aria-hidden="true"></i><i class="ph ph-gear" aria-hidden="true"></i><i class="ph ph-arrow-clockwise" aria-hidden="true"></i><i class="ph ph-power" aria-hidden="true"></i>
         </span>
       </div>
     </div>
@@ -230,18 +255,29 @@
     <h3 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; line-height: 28px; margin: 0;">Put a meter on it</h3>
     <p style="font-size: 15.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 20px 0 0; max-width: 58ch;">Claude-o-Meter is what Celadora Studios offers today. Grab it from GitHub and know your number by lunch.</p>
     <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
-      <a id="footer-cta-github" data-attr="footer-cta-github" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i class="ph-fill ph-github-logo"></i> deklin/claude-o-meter</a>
+      <a id="footer-cta-github" data-attr="footer-cta-github" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i class="ph-fill ph-github-logo" aria-hidden="true"></i> deklin/claude-o-meter</a>
     </div>
+    <p class="legal-consent-note">
+      By downloading or installing, you accept the
+      <a href="/terms.html">Terms of use</a>. The install script runs code on
+      your machine, and the app checks GitHub for updates on launch.
+    </p>
   </section>
 
-  <footer style="padding: 56px 0; font-size: 13px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 55%, transparent); display: flex; align-items: center; gap: 10px;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
-      <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></line>
-    </svg>
-    Celadora Studios · Claude-o-Meter is an independent tool, not affiliated with Anthropic.
+  <footer style="padding: 56px 0; font-size: 13px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 55%, transparent); display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px;">
+    <span style="display: inline-flex; align-items: center; gap: 10px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
+        <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></line>
+      </svg>
+      Celadora Studios · Claude-o-Meter is an independent tool, not affiliated with Anthropic.
+    </span>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/accessibility.html">Accessibility</a>
+    <button type="button" data-consent-settings style="background: none; border: none; padding: 0; font: inherit; color: var(--color-accent-300); cursor: pointer;">Cookie settings</button>
   </footer>
-</div>
+</main>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{
   &quot;showAllInsights&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Product mockup&quot;}
