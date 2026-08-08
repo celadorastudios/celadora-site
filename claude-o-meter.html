@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Analytics + EU consent gate. PostHog starts opted out; analytics.js
+     is the only thing that turns it on, and only if the visitor agrees. -->
+<script src="analytics.js"></script>
+<title>Claude-o-Meter · Celadora Studios</title>
+<meta name="description" content="Claude-o-Meter: a private macOS menu-bar app that tracks your Claude Code spend in real time.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<!-- Self-hosted runtime. support.js consults window.__resources before falling
+     back to its hard-coded unpkg URLs (see cdnScriptFor in support.js), so this
+     map is the supported way to keep the page off a third-party CDN without
+     editing generated code. Two reasons it matters: the page renders blank if
+     unpkg is unreachable, and every visit otherwise hands a visitor's IP to a
+     third party before they've agreed to anything. Must run before support.js. -->
+<script>
+  window.__resources = {
+    "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "/vendor/react/react.production.min.js",
+    "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "/vendor/react/react-dom.production.min.js"
+  };
+</script>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/vendor/inter/inter.css">
+<!-- Cloudflare Web Analytics -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf54d1f7a85e4f868e264c4f6b7748fd"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/styles.css">
+  <script src="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/_ds_bundle.js"></script>
+  <link rel="stylesheet" href="/vendor/phosphor/regular/style.css">
+  <link rel="stylesheet" href="/vendor/phosphor/fill/style.css">
+  <style>
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 720px at 82% -160px, color-mix(in srgb, var(--color-accent-900) 75%, transparent), transparent 60%),
+        radial-gradient(1100px 800px at -10% 100%, color-mix(in srgb, black 30%, transparent), transparent 55%),
+        var(--color-bg);
+      text-wrap: pretty;
+    }
+    a { color: var(--color-accent-300); text-decoration: none; }
+    a:hover { color: var(--color-accent); }
+    /* WCAG 1.4.1: footer links sit in muted text and were distinguished by
+       colour alone at ~2.3:1 against it, under the 3:1 threshold. Underline
+       them rather than retune the palette. */
+    footer a { text-decoration: underline; }
+    .legal-consent-note { font-size: 12px; line-height: 20px; margin: 12px 0 0;
+      color: color-mix(in srgb, var(--color-text) 60%, transparent); }
+    .legal-consent-note a { text-decoration: underline; }
+  </style>
+</helmet>
+
+<nav class="nav" style="padding-inline: max(clamp(20px, 5vw, 72px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 72px)));">
+  <a class="nav-brand" href="/" style="display: inline-flex; align-items: center; gap: 10px; color: var(--color-text); text-decoration: none;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
+      <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round"></line>
+      <circle cx="12" cy="12" r="1.5" fill="var(--color-accent)"></circle>
+    </svg>
+    Celadora Studios
+  </a>
+  <a id="nav-products-link" data-attr="nav-products-link" href="/#products">All products</a>
+  <a id="nav-github-link" data-attr="nav-github-link" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener">GitHub</a>
+  <a id="nav-cta-get-app" data-attr="nav-cta-get-app" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">Get the app</a>
+</nav>
+
+<main style="display: block; max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
+
+  <section style="padding: 112px 0 84px;">
+    <span style="display: block; font-size: 13px; line-height: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent); font-feature-settings: 'tnum' 1; margin: 0 0 14px;">A Celadora Studios tool</span>
+    <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(44px, 6.4vw, 88px); line-height: 1.11; letter-spacing: -0.015em; margin: 0 0 0 -0.06em;">
+      <span style="display: block;">Know what Claude costs.</span>
+      <span style="display: block;">Live, in your menu bar.</span>
+    </h1>
+    <p style="font-size: 17px; line-height: 28px; max-width: 58ch; margin: 34px 0 0; color: var(--color-text);">Claude-o-Meter is a tiny macOS menu-bar app that watches your Claude Code spend live: today, this month, per model. It tells you, in plain language, where the money is going and how to spend less of it.</p>
+    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
+      <a id="hero-cta-github" data-attr="hero-cta-github" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">View on GitHub</a>
+      <a id="hero-see-features" data-attr="hero-see-features" class="btn btn-ghost" href="#product" style="text-decoration: none;">See what it does</a>
+    </div>
+    <p class="legal-consent-note">
+      Figures are estimates read from your own logs, not a bill. See the
+      <a href="/terms.html">Terms of use</a>, which you accept by downloading.
+    </p>
+  </section>
+
+  <section id="product" style="display: flex; flex-wrap: wrap; gap: 56px clamp(24px, 5vw, 96px); align-items: flex-start; padding: 56px 0 84px;">
+    <div style="flex: 1 1 380px; min-width: 300px;">
+      <span style="display: block; font-size: 13px; line-height: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent); font-feature-settings: 'tnum' 1; margin: 0 0 14px;">The meter</span>
+      <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 42px; letter-spacing: -0.012em; margin: 0;">One glance, whole picture</h2>
+      <p style="font-size: 15.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 20px 0 0; max-width: 48ch;">Click the menu-bar icon and the meter drops down: spend for today, the month and the trailing thirty days, a stacked per-model chart with your daily budget line drawn across it, and a feed of insights that read your usage patterns (cache efficiency, model mix, context bloat) and say what to do about them.</p>
+      <p style="font-size: 15.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin: 20px 0 0; max-width: 48ch;">Shown with sample data.</p>
+    </div>
+
+    <div style="flex: 0 1 400px; min-width: 320px; background: color-mix(in srgb, black 55%, var(--color-bg)); border: 1px solid var(--color-neutral-700); border-radius: 16px; padding: 18px 18px 14px; box-shadow: var(--shadow-lg); font-feature-settings: 'tnum' 1;">
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <!-- Our own accent, deliberately not Anthropic's brand orange
+             (#d97757). Using their colour on a glyph beside a product name
+             containing "Claude" weakens the nominative-fair-use position the
+             Terms rely on; the mark is ours, so the colour should be too. -->
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+          <rect x="2" y="5" width="16" height="10" rx="2" fill="#9184d9"></rect>
+          <rect x="5.5" y="8" width="2.5" height="2.5" fill="#161826"></rect>
+          <rect x="12" y="8" width="2.5" height="2.5" fill="#161826"></rect>
+          <rect x="4" y="2.5" width="2" height="3" fill="#9184d9"></rect>
+          <rect x="14" y="2.5" width="2" height="3" fill="#9184d9"></rect>
+        </svg>
+        <span style="font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--color-text);">Claude-o-Meter</span>
+        <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">0.6.x <i class="ph-fill ph-check-circle" aria-hidden="true" style="color: #34c26b; font-size: 15px;"></i></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; background: color-mix(in srgb, white 5%, transparent); border-radius: 10px; padding: 14px 16px; margin-top: 16px;">
+        <div>
+          <div style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Today</div>
+          <div style="font-size: 24px; font-weight: 600; color: var(--color-text); margin-top: 4px;">$0.42</div>
+        </div>
+        <div style="border-left: 1px solid color-mix(in srgb, white 10%, transparent); padding-left: 14px;">
+          <div style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Month</div>
+          <div style="font-size: 17px; font-weight: 600; color: var(--color-text); margin-top: 9px;">$812.40</div>
+        </div>
+        <div style="border-left: 1px solid color-mix(in srgb, white 10%, transparent); padding-left: 14px;">
+          <div style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">30 days</div>
+          <div style="font-size: 17px; font-weight: 600; color: var(--color-text); margin-top: 9px;">$2,347.90</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; margin-top: 16px;">
+        <div style="display: inline-flex; background: color-mix(in srgb, white 8%, transparent); border-radius: 8px; padding: 3px;">
+          <!-- Darker than the chart-bar blue (#2f7cf6) on purpose: white text
+               on that shade is 3.94:1, under the 4.5:1 WCAG 1.4.3 minimum.
+               This one is 5.5:1. The bars keep the lighter blue; they carry
+               no text. -->
+          <span style="font-size: 13.5px; font-weight: 600; color: white; background: #1d63d6; border-radius: 6px; padding: 4px 14px;">Daily</span>
+          <span style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 70%, transparent); padding: 4px 14px;">Monthly</span>
+        </div>
+        <span style="margin-left: auto; font-size: 13px; font-weight: 600; color: #e5a54b; background: color-mix(in srgb, #e5a54b 12%, transparent); border-radius: 7px; padding: 4px 10px;">↗ 38%</span>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 18px;">
+        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 132px; font-size: 10.5px; color: color-mix(in srgb, var(--color-text) 50%, transparent); text-align: right; padding-bottom: 0;">
+          <span>$300</span><span>$200</span><span>$100</span><span>$0</span>
+        </div>
+        <div style="flex: 1; position: relative;">
+          <div style="position: absolute; left: 0; right: 0; bottom: 22%; border-top: 1.5px dashed #e0524f; z-index: 1;"></div>
+          <span style="position: absolute; left: 4px; bottom: calc(22% + 6px); z-index: 2; font-size: 11px; font-weight: 600; color: white; background: #e0524f; border-radius: 999px; padding: 2px 9px;">Daily alert · $50.00</span>
+          <div style="display: flex; align-items: flex-end; gap: 4px; height: 132px;">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 14px;"></div><div style="background: #2f7cf6; height: 8px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 30px;"></div><div style="background: #2f7cf6; height: 10px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 62px;"></div><div style="background: #2f7cf6; height: 14px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 70px;"></div><div style="background: #2f7cf6; height: 12px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 6px;"></div><div style="background: #34c26b; height: 4px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 118px;"></div><div style="background: #2f7cf6; height: 14px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 48px;"></div><div style="background: #2f7cf6; height: 16px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 26px;"></div><div style="background: #2f7cf6; height: 10px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #2f7cf6; height: 20px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 34px;"></div><div style="background: #2f7cf6; height: 12px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 66px;"></div><div style="background: #2f7cf6; height: 10px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 4px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 42px;"></div><div style="background: #2f7cf6; height: 8px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 74px;"></div><div style="background: #2f7cf6; height: 12px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 24px;"></div><div style="background: #2f7cf6; height: 18px;"></div></div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;"><div style="background: #e8823d; height: 52px;"></div><div style="background: #2f7cf6; height: 10px;"></div></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-top: 6px;">
+            <span>…</span><span>6/19</span><span>6/26</span><span>7/3</span><span>7/10</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 16px; font-size: 12.5px; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin-top: 12px;">
+        <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #34c26b;"></span>haiku</span>
+        <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #2f7cf6;"></span>sonnet</span>
+        <span style="display: inline-flex; align-items: center; gap: 5px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #e8823d;"></span>opus</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 10px; background: color-mix(in srgb, #2f7cf6 8%, transparent); border: 1px solid color-mix(in srgb, #2f7cf6 20%, transparent); border-radius: 9px; padding: 10px 12px; margin-top: 16px; font-size: 14px;">
+        <i class="ph ph-folder" aria-hidden="true" style="color: #2f7cf6; font-size: 17px;"></i>
+        <span style="color: color-mix(in srgb, var(--color-text) 80%, transparent);">Top project: <span style="color: #4d94ff; font-weight: 600;">aurora-ui</span> ($1,204.55)</span>
+        <i class="ph ph-caret-right" aria-hidden="true" style="margin-left: auto; color: color-mix(in srgb, var(--color-text) 45%, transparent);"></i>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+        <div style="background: color-mix(in srgb, #34c26b 7%, transparent); border-radius: 9px; padding: 11px 13px;">
+          <div style="font-size: 14px; font-weight: 600; color: #4ed488;">● Cache efficiency at 97%</div>
+          <div style="font-size: 13.5px; line-height: 20px; color: color-mix(in srgb, var(--color-text) 75%, transparent); margin-top: 3px;">Cached tokens cost ~10× less than fresh input. Your workflow is well optimised.</div>
+        </div>
+        <div style="background: color-mix(in srgb, #e5a54b 7%, transparent); border-radius: 9px; padding: 11px 13px;">
+          <div style="font-size: 14px; font-weight: 600; color: #e5a54b;">● Opus is 71% of 7-day spend</div>
+          <div style="font-size: 13.5px; line-height: 20px; color: color-mix(in srgb, var(--color-text) 75%, transparent); margin-top: 3px;">For everyday coding, Sonnet delivers comparable results at ~6× lower cost. Run `/model sonnet` to switch.</div>
+        </div>
+        <sc-if value="{{ showAllInsights }}" hint-placeholder-val="{{ true }}">
+          <div style="background: color-mix(in srgb, #e5a54b 7%, transparent); border-radius: 9px; padding: 11px 13px;">
+            <div style="font-size: 14px; font-weight: 600; color: #e5a54b;">● Spending up 38% vs last week</div>
+            <div style="font-size: 13.5px; line-height: 20px; color: color-mix(in srgb, var(--color-text) 75%, transparent); margin-top: 3px;">Daily average rose from $54.20 to $74.80. Review model selection or prompt patterns.</div>
+          </div>
+          <div style="background: color-mix(in srgb, #e5a54b 7%, transparent); border-radius: 9px; padding: 11px 13px;">
+            <div style="font-size: 14px; font-weight: 600; color: #e5a54b;">● ~$68.10 recoverable from context bloat</div>
+            <div style="font-size: 13.5px; line-height: 20px; color: color-mix(in srgb, var(--color-text) 75%, transparent); margin-top: 3px;">Over the last 7 days you paid ~$68.10 in avoidable cache reads by re-reading context above a healthy working size. Run /compact before sessions balloon, or /clear between tasks.</div>
+          </div>
+          <div style="background: color-mix(in srgb, #e5a54b 7%, transparent); border-radius: 9px; padding: 11px 13px;">
+            <div style="font-size: 14px; font-weight: 600; color: #e5a54b;">● On pace for ~$2,240 this month</div>
+            <div style="font-size: 13.5px; line-height: 20px; color: color-mix(in srgb, var(--color-text) 75%, transparent); margin-top: 3px;">At $74.80/day avg, you're on pace for 224% of your $1,000.00 monthly budget.</div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display: flex; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, white 8%, transparent); font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">
+        Updated 12 sec ago
+        <span style="margin-left: auto; display: inline-flex; gap: 14px; font-size: 17px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
+          <i class="ph-fill ph-github-logo" aria-hidden="true"></i><i class="ph ph-gear" aria-hidden="true"></i><i class="ph ph-arrow-clockwise" aria-hidden="true"></i><i class="ph ph-power" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 28px 0 56px;">
+    <span style="display: block; font-size: 13px; line-height: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent); font-feature-settings: 'tnum' 1; margin: 0 0 14px;">What it does</span>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 16px clamp(24px, 4vw, 72px); align-items: start; padding: 42px 0;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; line-height: 15px; color: var(--color-accent); font-feature-settings: 'tnum' 1; margin: 0;">01</p>
+        <h3 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; line-height: 28px; letter-spacing: -0.01em; margin: 0;">Live spend, per model</h3>
+      </div>
+      <p style="font-size: 15.5px; line-height: 28px; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 52ch;">Today, this month and the trailing thirty days, always one click away. The stacked chart splits every day by model, Haiku through Opus, so you can see exactly which one is eating the budget.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 16px clamp(24px, 4vw, 72px); align-items: start; padding: 42px 0; position: relative;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--color-neutral-700) 48px calc(100% - 48px), transparent);"></div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; line-height: 15px; color: var(--color-accent); font-feature-settings: 'tnum' 1; margin: 0;">02</p>
+        <h3 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; line-height: 28px; letter-spacing: -0.01em; margin: 0;">Budgets and alerts</h3>
+      </div>
+      <p style="font-size: 15.5px; line-height: 28px; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 52ch;">Set a daily alert and a monthly budget; the alert line is drawn straight across the chart, and the meter projects your month-end total from the current pace, before the invoice does.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 16px clamp(24px, 4vw, 72px); align-items: start; padding: 42px 0; position: relative;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--color-neutral-700) 48px calc(100% - 48px), transparent);"></div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; line-height: 15px; color: var(--color-accent); font-feature-settings: 'tnum' 1; margin: 0;">03</p>
+        <h3 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; line-height: 28px; letter-spacing: -0.01em; margin: 0;">Insights that save money</h3>
+      </div>
+      <p style="font-size: 15.5px; line-height: 28px; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 52ch;">The meter reads your usage patterns and says what to do in plain language: cache efficiency, model mix, context bloat, per-project totals. Each insight names the problem, the dollar amount, and the fix.</p>
+    </div>
+  </section>
+
+  <hr style="height: 1px; border: 0; margin: 0; background: linear-gradient(to right, transparent, var(--color-divider) 48px calc(100% - 48px), transparent);">
+
+  <section style="padding: 70px 0 56px;">
+    <h3 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; line-height: 28px; margin: 0;">Put a meter on it</h3>
+    <p style="font-size: 15.5px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 20px 0 0; max-width: 58ch;">Grab it from GitHub and know your number by lunch. It's one of <a href="/#products">the tools Celadora Studios makes</a>.</p>
+    <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: 28px;">
+      <a id="footer-cta-github" data-attr="footer-cta-github" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i class="ph-fill ph-github-logo" aria-hidden="true"></i> deklin/claude-o-meter</a>
+    </div>
+    <p class="legal-consent-note">
+      By downloading or installing, you accept the
+      <a href="/terms.html">Terms of use</a>. The install script runs code on
+      your machine, and the app checks GitHub for updates on launch.
+    </p>
+  </section>
+
+  <footer style="padding: 56px 0; font-size: 13px; line-height: 28px; color: color-mix(in srgb, var(--color-text) 55%, transparent); display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px;">
+    <span style="display: inline-flex; align-items: center; gap: 10px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
+        <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></line>
+      </svg>
+      Celadora Studios · Claude-o-Meter is an independent tool, not affiliated with Anthropic.
+    </span>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/accessibility.html">Accessibility</a>
+    <button type="button" data-consent-settings style="background: none; border: none; padding: 0; font: inherit; color: var(--color-accent-300); cursor: pointer;">Cookie settings</button>
+  </footer>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;showAllInsights&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Product mockup&quot;}
+}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showAllInsights: this.props.showAllInsights ?? true,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -13,7 +13,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const PAGES = ['index.html', 'privacy.html', 'terms.html', 'accessibility.html'];
+const PAGES = [
+  'index.html',
+  'claude-o-meter.html',
+  'partsbin.html',
+  'privacy.html',
+  'terms.html',
+  'accessibility.html'
+];
 
 const failures = [];
 const fail = (rule, detail) => failures.push({ rule, detail });
@@ -45,7 +52,7 @@ const FILES = servedFiles();
  * fonts, icons and scripts come from this domain.
  *
  * unpkg.com is allowed to appear ONLY as a key in the window.__resources
- * remap in index.html — those are strings support.js matches against, never
+ * remap in index.html. Those are strings support.js matches against, never
  * fetched. Anywhere else it is a real request.
  */
 const BANNED_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'unpkg.com'];
@@ -58,9 +65,10 @@ for (const file of FILES) {
     lines.forEach((line, i) => {
       if (!line.includes(host)) return;
 
-      // The window.__resources map in index.html lists unpkg URLs as KEYS —
-      // strings support.js matches against, never fetched.
-      const isRemapKey = file === 'index.html' && host === 'unpkg.com'
+      // A window.__resources map lists unpkg URLs as KEYS: strings support.js
+      // matches against, never fetched. Valid on any page that loads the
+      // runtime, not just whichever page happens to be the home page today.
+      const isRemapKey = host === 'unpkg.com'
         && /^\s*"https:\/\/unpkg\.com\/[^"]+":\s*"\/vendor\//.test(line);
       if (isRemapKey) return;
 
@@ -77,7 +85,7 @@ for (const file of FILES) {
   }
 }
 
-/* rule 1b — every CDN URL support.js could fetch must be remapped to a local
+/* rule 1b: every CDN URL support.js could fetch must be remapped to a local
  * file in index.html, and that file must exist. This is what actually keeps
  * the page off unpkg; deleting the remap is the realistic regression.
  *
@@ -88,16 +96,25 @@ for (const file of FILES) {
  */
 const LAZY_UNUSED = ['BABEL_URL'];
 const support = read('support.js');
-const indexSrc = read('index.html');
+const cdnUrls = [...support.matchAll(/var ([A-Z_]+_URL) = "(https:\/\/unpkg\.com\/[^"]+)"/g)]
+  .filter(([, name]) => !LAZY_UNUSED.includes(name));
 
-for (const m of support.matchAll(/var ([A-Z_]+_URL) = "(https:\/\/unpkg\.com\/[^"]+)"/g)) {
-  const [, name, url] = m;
-  if (LAZY_UNUSED.includes(name)) continue;
-  const remap = indexSrc.match(new RegExp(`"${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"\\s*:\\s*"(/vendor/[^"]+)"`));
-  if (!remap) {
-    fail('cdn-remapped', `${name} (${url}) has no window.__resources entry in index.html`);
-  } else if (!exists(remap[1].replace(/^\//, ''))) {
-    fail('cdn-remapped', `${name} remaps to ${remap[1]}, which does not exist`);
+// Checked per page that actually loads the runtime. A new product page that
+// pulls in support.js without the remap would otherwise hit unpkg silently.
+const runtimePages = PAGES.filter((p) => /<script[^>]+src="\.?\/?support\.js"/.test(read(p)));
+if (runtimePages.length === 0) {
+  console.log('note: no page loads support.js; the CDN remap rule has nothing to check');
+}
+
+for (const page of runtimePages) {
+  const src = read(page);
+  for (const [, name, url] of cdnUrls) {
+    const remap = src.match(new RegExp(`"${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"\\s*:\\s*"(/vendor/[^"]+)"`));
+    if (!remap) {
+      fail('cdn-remapped', `${page} loads support.js but has no window.__resources entry for ${name}`);
+    } else if (!exists(remap[1].replace(/^\//, ''))) {
+      fail('cdn-remapped', `${page} remaps ${name} to ${remap[1]}, which does not exist`);
+    }
   }
 }
 
@@ -150,7 +167,7 @@ for (const file of FILES.filter((f) => f !== 'analytics.js')) {
 }
 
 /* ---------------------------------------------------------------- rule 5
- * Vendored assets must actually be present — a broken path here is the blank
+ * Vendored assets must actually be present, because a broken path here is the blank
  * home page all over again.
  */
 const VENDOR = [

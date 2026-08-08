@@ -4,7 +4,7 @@
  * prove the running page doesn't contact one, which is the claim the privacy
  * policy actually makes. Two regressions this would have caught:
  *
- *   1. PostHog's loader being fetched before consent — the snippet pulls
+ *   1. PostHog's loader being fetched before consent. The snippet pulls
  *      array.js from PostHog's CDN even while opted out, disclosing the
  *      visitor's IP before they agreed to anything.
  *   2. The home page rendering blank when a CDN is unreachable, which the
@@ -18,12 +18,12 @@ const BASE = `http://localhost:${PORT}`;
 const CONSENT_KEY = 'celadora-analytics-consent';
 
 const THIRD_PARTY = [/posthog/i, /unpkg\.com/i, /fonts\.googleapis\.com/i, /fonts\.gstatic\.com/i];
-const PAGES = ['/', '/privacy.html', '/terms.html', '/accessibility.html'];
+const PAGES = ['/', '/claude-o-meter.html', '/partsbin.html', '/privacy.html', '/terms.html', '/accessibility.html'];
 
 const results = [];
 const check = (name, ok, detail = '') => {
   results.push({ name, ok, detail });
-  console.log(`${ok ? '  ok  ' : ' FAIL '} ${name}${detail ? ' — ' + detail : ''}`);
+  console.log(`${ok ? '  ok  ' : ' FAIL '} ${name}${detail ? ': ' + detail : ''}`);
 };
 
 /**
@@ -32,7 +32,7 @@ const check = (name, ok, detail = '') => {
  *
  * The isolation is load-bearing, not tidiness: localStorage is shared across
  * pages of one browser, so a check that seeds consent would silently decide
- * the outcome of every check after it — which is exactly how the
+ * the outcome of every check after it, which is exactly how the
  * banner-shown-when-undecided assertion first went green against a browser
  * that had already been told "granted".
  */
@@ -81,7 +81,7 @@ try {
     await page.close(); await page.__context.close();
   }
 
-  // 3. Granting consent actually enables PostHog — the gate has to work in
+  // 3. Granting consent actually enables PostHog. The gate has to work in
   //    both directions, or "granted" silently means nothing.
   {
     const { page, seen } = await visit(browser, '/', { consent: 'granted' });
@@ -117,7 +117,7 @@ try {
     await page.close(); await page.__context.close();
   }
 
-  // 7. The contact address must survive with JavaScript disabled — it is the
+  // 7. The contact address must survive with JavaScript disabled, because it is the
   //    channel for GDPR and CCPA rights requests.
   {
     const ctx = browser.createBrowserContext ? await browser.createBrowserContext() : await browser.createIncognitoBrowserContext();

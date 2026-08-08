@@ -10,6 +10,8 @@
   },
   "urls": [
     "http://localhost:8791/",
+    "http://localhost:8791/claude-o-meter.html",
+    "http://localhost:8791/partsbin.html",
     "http://localhost:8791/privacy.html",
     "http://localhost:8791/terms.html",
     "http://localhost:8791/accessibility.html"

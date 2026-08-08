@@ -86,7 +86,7 @@ body {
   margin-top: 8px;
 }
 
-/* Callout for the things a reader must not miss — the cost-estimate
+/* Callout for the things a reader must not miss, above all the cost-estimate
    disclaimer above all. */
 .legal-note {
   border: 1px solid var(--color-accent-800);

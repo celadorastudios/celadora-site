@@ -1,0 +1,490 @@
+/* Shared chrome for the studio pages: nav, hero, product catalogue, footer.
+   Tokens come from the Nocturne design system; this file adds only the
+   multi-product furniture the single-product page never needed.
+
+   Deliberately plain CSS on plain HTML. The studio home and the partsbin
+   page carry no interactive mockup, so they need no React and render with
+   JavaScript switched off entirely. Only claude-o-meter.html loads the
+   dc-runtime, because only it has an <sc-if>. */
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 720px at 82% -160px, color-mix(in srgb, var(--color-accent-900) 75%, transparent), transparent 60%),
+    radial-gradient(1100px 800px at -10% 100%, color-mix(in srgb, black 30%, transparent), transparent 55%),
+    var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  text-wrap: pretty;
+}
+
+a { color: var(--color-accent-300); text-decoration: none; }
+a:hover { color: var(--color-accent); }
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 72px);
+}
+
+/* Skip link. Short pages, but its absence was on the accessibility page's
+   own list of gaps. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+}
+.skip-link:focus { left: 16px; top: 16px; }
+
+/* ------------------------------------------------------------------ nav */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px 22px;
+  flex-wrap: wrap;
+  padding-block: 20px;
+  font-size: 15px;
+}
+.site-nav .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  font-weight: 500;
+  margin-right: auto;
+}
+.site-nav .brand:hover { color: var(--color-accent); }
+.site-nav a { color: color-mix(in srgb, var(--color-text) 78%, transparent); }
+.site-nav a:hover { color: var(--color-accent); }
+.site-nav a.btn { color: var(--color-text); }
+
+/* ----------------------------------------------------------------- hero */
+.hero { padding: 96px 0 72px; }
+
+.kicker {
+  display: block;
+  font-size: 13px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-feature-settings: 'tnum' 1;
+  margin: 0 0 14px;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(40px, 5.6vw, 76px);
+  line-height: 1.11;
+  letter-spacing: -0.015em;
+  margin: 0 0 0 -0.05em;
+  max-width: 18ch;
+}
+
+.hero .lede {
+  font-size: 17px;
+  line-height: 29px;
+  max-width: 60ch;
+  margin: 30px 0 0;
+  color: color-mix(in srgb, var(--color-text) 86%, transparent);
+}
+
+/* ------------------------------------------------------- product cards */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+}
+.section-head h2 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 30px;
+  line-height: 38px;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+.section-head .count {
+  font-size: 13.5px;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  font-feature-settings: 'tnum' 1;
+}
+
+/* auto-fit means the same markup handles 2 products or 9, and nothing is ever
+   hidden behind a control, which is the whole job of a catalogue. */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: clamp(18px, 2.4vw, 26px);
+  padding-bottom: 24px;
+}
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: 16px;
+  background: color-mix(in srgb, black 42%, var(--color-bg));
+  padding: 26px 26px 22px;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+.product-card:hover {
+  border-color: var(--color-accent-700);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-card { transition: none; }
+  .product-card:hover { transform: none; }
+}
+
+/* Whole-card click target.
+   The card title is a real link and its ::after is stretched over the card,
+   so the entire tile is clickable while assistive tech still sees one link
+   with meaningful text. A bare click handler on the <article> would give the
+   mouse a target that the keyboard and a screen reader never get.
+   Everything genuinely interactive sits above the overlay via z-index, so
+   the secondary buttons keep working. */
+.product-card .card-link {
+  color: inherit;
+  text-decoration: none;
+}
+.product-card .card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+}
+.product-card:hover .card-link { color: var(--color-accent); }
+
+/* Focus lands on the title link, so show the ring around the whole card. */
+.product-card:has(.card-link:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-color: var(--color-accent-700);
+}
+.product-card .card-link:focus-visible { outline: none; }
+
+.product-card .card-actions,
+.product-card .spec a,
+.product-card .note a {
+  position: relative;
+  z-index: 1;
+}
+
+/* Text inside a stretched-link card still needs to be selectable. */
+.product-card .blurb,
+.product-card .spec { position: relative; z-index: 1; pointer-events: none; }
+.product-card .spec a,
+.product-card .blurb a { pointer-events: auto; }
+
+.product-card .card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.product-card .mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  flex-shrink: 0;
+}
+.product-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 24px;
+  margin: 0;
+  color: var(--color-text);
+}
+.product-card .tagline {
+  font-size: 13px;
+  line-height: 18px;
+  color: color-mix(in srgb, var(--color-text) 58%, transparent);
+  margin: 2px 0 0;
+}
+
+.product-card p.blurb {
+  font-size: 15px;
+  line-height: 26px;
+  color: color-mix(in srgb, var(--color-text) 80%, transparent);
+  margin: 0 0 20px;
+}
+
+.spec {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  border-top: 1px solid var(--color-divider);
+  font-size: 13.5px;
+  font-feature-settings: 'tnum' 1;
+}
+.spec li {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-divider);
+  color: color-mix(in srgb, var(--color-text) 82%, transparent);
+}
+.spec .label { color: color-mix(in srgb, var(--color-text) 52%, transparent); }
+
+.card-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+/* ---------------------------------------------------------- status chip
+   Status is a first-class field, not a footnote: one product ships today and
+   one does not, and a catalogue that blurs that is just marketing. Shape and
+   text carry the meaning, never colour alone (WCAG 1.4.1). */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.status .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.status-available { color: #62d29a; }
+.status-building  { color: var(--color-accent-2); }
+.status-building .dot { border-radius: 1px; }   /* square: shape, not colour */
+
+.grid-note {
+  font-size: 14px;
+  line-height: 24px;
+  color: color-mix(in srgb, var(--color-text) 52%, transparent);
+  margin: 4px 0 0;
+}
+
+/* ------------------------------------------------------- studio section */
+.studio {
+  border-top: 1px solid var(--color-divider);
+  padding: 64px 0 8px;
+}
+.principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px clamp(24px, 4vw, 56px);
+  margin-top: 32px;
+}
+.principles h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 16.5px;
+  line-height: 24px;
+  margin: 0 0 8px;
+}
+.principles p {
+  font-size: 14.5px;
+  line-height: 25px;
+  color: color-mix(in srgb, var(--color-text) 76%, transparent);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- footer */
+.site-footer {
+  border-top: 1px solid var(--color-divider);
+  margin-top: 72px;
+  padding: 28px 0 64px;
+  font-size: 13px;
+  line-height: 26px;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.site-footer a { color: color-mix(in srgb, var(--color-text) 70%, transparent); text-decoration: underline; }
+.site-footer a:hover { color: var(--color-accent); }
+.site-footer .disclaimer { margin-right: auto; display: inline-flex; align-items: center; gap: 10px; }
+.site-footer button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.site-footer button:hover { color: var(--color-accent); }
+
+/* ------------------------------------------------- product page specifics */
+.product-hero { padding: 72px 0 56px; }
+.product-hero h1 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(38px, 5.2vw, 68px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0;
+  max-width: 20ch;
+}
+.note {
+  font-size: 12px;
+  line-height: 20px;
+  margin: 12px 0 0;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+.note a { text-decoration: underline; }
+
+/* Product screenshot. The alt text carries the full description, since these
+   are the images on the site doing real explanatory work. */
+.shot { margin: 0; }
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-neutral-700);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+}
+.shot figcaption {
+  font-size: 13.5px;
+  line-height: 23px;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  margin-top: 14px;
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------------------- gallery
+   Scroll-snap, not slide-swapping: every slide stays in the DOM and in the
+   reading order, so swipe, arrow keys and a screen reader all work with the
+   script disabled. The buttons are injected by gallery.js. */
+.gallery-viewport {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  border-radius: 14px;
+  /* Room for the focus ring, which would otherwise be clipped by overflow. */
+  padding: 3px;
+  margin: -3px;
+  /* The dots are the position indicator; a raw scrollbar under the image
+     reads as a layout bug. Scrolling itself stays fully available. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.gallery-viewport::-webkit-scrollbar { display: none; }
+.gallery-viewport:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-viewport { scroll-behavior: auto; }
+}
+
+.gallery-track {
+  display: flex;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.gallery-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  min-width: 0;
+}
+
+.gallery-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+.gallery-arrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  border: 1px solid var(--color-neutral-700);
+  background: color-mix(in srgb, black 35%, var(--color-bg));
+  color: var(--color-text);
+  font-size: 16px;
+  cursor: pointer;
+}
+.gallery-arrow:hover:not(:disabled) { border-color: var(--color-accent); color: var(--color-accent); }
+.gallery-arrow:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.gallery-arrow:disabled { opacity: 0.35; cursor: default; }
+
+.gallery-play {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  margin-right: auto;
+  border-radius: 999px;
+  border: 1px solid var(--color-neutral-700);
+  background: color-mix(in srgb, black 35%, var(--color-bg));
+  color: var(--color-text);
+  font-size: 13px;
+  cursor: pointer;
+}
+.gallery-play:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.gallery-play:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.gallery-dots { display: flex; gap: 8px; }
+.gallery-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-neutral-600);
+  background: transparent;
+  cursor: pointer;
+}
+.gallery-dot:hover { border-color: var(--color-accent); }
+.gallery-dot:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+/* Current slide is marked by fill AND by aria-current, never colour alone. */
+.gallery-dot[aria-current="true"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Placeholder frame for a screenshot not yet supplied. Labelled as such so it
+   can never be mistaken for the real product. */
+.shot-frame {
+  border: 1px dashed var(--color-neutral-700);
+  border-radius: 16px;
+  background: color-mix(in srgb, black 30%, var(--color-bg));
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: clamp(40px, 9vw, 96px) 24px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+  font-size: 14px;
+  line-height: 24px;
+}

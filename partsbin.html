@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>partsbin · Celadora Studios</title>
+<meta name="description" content="partsbin: design 3D-printable parts from parameters in the browser and export real B-rep solids as STEP, OpenSCAD, STL or 3MF. In development.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/styles.css">
+<link rel="stylesheet" href="/vendor/inter/inter.css">
+<link rel="stylesheet" href="site.css">
+<script src="analytics.js"></script>
+<script src="gallery.js" defer></script>
+<!-- Cloudflare Web Analytics -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cf54d1f7a85e4f868e264c4f6b7748fd"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="wrap">
+  <nav class="site-nav">
+    <a class="brand" href="/">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
+        <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round"></line>
+        <circle cx="12" cy="12" r="1.5" fill="var(--color-accent)"></circle>
+      </svg>
+      Celadora Studios
+    </a>
+    <a id="pb-nav-products" data-attr="pb-nav-products" href="/#products">All products</a>
+    <a id="pb-nav-com" data-attr="pb-nav-com" href="/claude-o-meter.html">Claude-o-Meter</a>
+  </nav>
+</div>
+
+<main id="main" class="wrap">
+
+  <section class="product-hero">
+    <span class="kicker">A Celadora Studios tool</span>
+    <h1>Type the dimensions. Get a solid you can keep editing.</h1>
+    <p class="lede" style="max-width: 60ch;">
+      partsbin is a browser tool for designing 3D-printable parts from
+      parameters. Set the numbers, watch the solid update, export it in a
+      format that survives, including a STEP file that opens in FreeCAD,
+      Fusion, Onshape or SolidWorks as a real editable model.
+    </p>
+    <p style="margin-top: 26px;">
+      <span class="status status-building">
+        <span class="dot" aria-hidden="true"></span>In development
+      </span>
+    </p>
+    <p class="note" style="max-width: 60ch;">
+      It isn't released yet and there's no date. When it ships it will live at
+      <strong>partsbin.celadora.net</strong>. This page describes what it does
+      today in development, not a promise about the finished thing.
+    </p>
+  </section>
+
+  <section style="padding: 8px 0 72px;">
+    <div class="gallery" data-gallery>
+      <section class="gallery-viewport" aria-label="partsbin screenshots, scrollable" tabindex="0">
+        <ul class="gallery-track">
+
+          <li class="gallery-slide">
+            <figure class="shot">
+              <img src="/assets/partsbin-threaded-fastener.webp" width="2560" height="1660"
+                   loading="eager" fetchpriority="high" decoding="async"
+                   alt="The partsbin editor showing a threaded fastener: a socket-cap screw with a real helical thread, rendered as a solid. The panel on the right sets head style, diameter and height, the drive recess and driver size, and the thread standard, size, pitch and length. A readout reports 0.73 cubic centimetres of material and 32,474 triangles, with a warning that 646 zero-area triangles will be discarded by slicers.">
+              <figcaption>Threaded fastener. Seven head styles, five drive recesses, and any pitch you like.</figcaption>
+            </figure>
+          </li>
+
+          <li class="gallery-slide">
+            <figure class="shot">
+              <img src="/assets/partsbin-basket.webp" width="2560" height="1660"
+                   loading="lazy" decoding="async"
+                   alt="The partsbin editor showing a basket: an open slatted crate with rounded corners, drain holes in the floor and a mounting tongue. The panel sets length 200, width 140 and height 110 millimetres, plus lean angle, corner radius, wall, floor and rim thickness, and slat width and gap. The readout reports 256.72 cubic centimetres of material and 42,764 triangles.">
+              <figcaption>Basket. Solid, slatted or mesh, with a tongue cut from the same figure as the mount's slot.</figcaption>
+            </figure>
+          </li>
+
+          <li class="gallery-slide">
+            <figure class="shot">
+              <img src="/assets/partsbin-bar-mount.webp" width="2560" height="1660"
+                   loading="lazy" decoding="async"
+                   alt="The partsbin editor showing a bar and stem mount: a curved clamp half with a bolt hole through one side and a slide-in slot on the other. The panel sets the bar section and size at a 31.8 millimetre bar clamp, fit and closing gap, body wall, width and edge chamfer, and whether the clamp is held by bolts. The readout reports 12.53 cubic centimetres and 3,796 triangles.">
+              <figcaption>Bar &amp; stem mount. Clamps a handlebar, scooter stem or seatpost, round or oval.</figcaption>
+            </figure>
+          </li>
+
+          <li class="gallery-slide">
+            <figure class="shot">
+              <img src="/assets/partsbin-control-knob.webp" width="2560" height="1660"
+                   loading="lazy" decoding="async"
+                   alt="The partsbin editor showing a control knob: a tapered cylinder with eight scalloped flutes around its grip and a domed top with a central bore. The panel sets base diameter 40 millimetres, taper 8 degrees, height 22 millimetres, base and top chamfers, grip style, flute count and depth, and the top shape. The readout reports 18.26 cubic centimetres and 7,218 triangles.">
+              <figcaption>Control knob. Captures a nut or bolt head, for jigs, clamps and machine adjusters.</figcaption>
+            </figure>
+          </li>
+
+        </ul>
+      </section>
+    </div>
+    <p class="note" style="max-width: 62ch;">
+      Real screenshots from the current build, not mockups. Every field on the
+      right reshapes the solid on the left, and Export STEP writes the same
+      B-rep the viewer is showing.
+    </p>
+  </section>
+
+  <section style="padding: 8px 0 72px;">
+    <div class="section-head"><h2>Why the export format matters</h2></div>
+    <p style="font-size: 16px; line-height: 28px; max-width: 64ch; margin: 0 0 20px; color: color-mix(in srgb, var(--color-text) 84%, transparent);">
+      Most browser-based part generators hand you a mesh: a shell of triangles
+      that a slicer can print but no CAD tool can meaningfully edit. Change
+      your mind about a dimension and you start over.
+    </p>
+    <p style="font-size: 16px; line-height: 28px; max-width: 64ch; margin: 0; color: color-mix(in srgb, var(--color-text) 84%, transparent);">
+      partsbin builds real B-rep geometry with OpenCascade, the kernel behind
+      FreeCAD, compiled to WebAssembly. The STEP file it writes is the same
+      solid the viewer is showing, so the part remains a part: faces, edges and
+      all, ready to be modified by someone who has never heard of partsbin.
+    </p>
+  </section>
+
+  <section style="padding: 8px 0 72px;">
+    <div class="section-head"><h2>What it does</h2></div>
+    <div class="principles">
+      <div>
+        <h3>Parametric editing</h3>
+        <p>
+          Every part declares a schema, and the input panel, the validation and
+          the exports are all generated from it. One definition, no drift.
+        </p>
+      </div>
+      <div>
+        <h3>Live highlighting</h3>
+        <p>
+          Focus a field and the region of the solid it controls lights up,
+          glowing through the body when it sits behind other material, so you
+          can see what a number actually moves.
+        </p>
+      </div>
+      <div>
+        <h3>Printability checks</h3>
+        <p>
+          The mesh is verified watertight, manifold, consistently wound and in
+          one piece before you take it to a slicer.
+        </p>
+      </div>
+      <div>
+        <h3>Values that correct themselves</h3>
+        <p>
+          A figure that can't work with the rest is pulled to the nearest one
+          that can, with a note explaining why. Only the field you edited moves.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 8px 0 72px;">
+    <div class="section-head"><h2>Exports</h2></div>
+    <ul class="spec" style="max-width: 640px; margin-bottom: 0;">
+      <li><span><code>.step</code></span><span class="label">Editable solid, open in any CAD tool and keep modelling</span></li>
+      <li><span><code>.scad</code></span><span class="label">Editable OpenSCAD source, parameter block intact</span></li>
+      <li><span><code>.stl</code></span><span class="label">Straight to a slicer</span></li>
+      <li><span><code>.3mf</code></span><span class="label">Straight to a slicer, carrying units so scale is never guessed</span></li>
+      <li><span><code>.json</code></span><span class="label">The parameter set alone, to reload or share</span></li>
+    </ul>
+  </section>
+
+  <section style="padding: 8px 0 24px; border-top: 1px solid var(--color-divider);">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; line-height: 30px; margin: 48px 0 0;">Nothing to sign up for</h2>
+    <p style="font-size: 15.5px; line-height: 28px; max-width: 60ch; margin: 18px 0 0; color: color-mix(in srgb, var(--color-text) 80%, transparent);">
+      partsbin runs entirely in your browser. Designs are saved to your own
+      browser storage, there is no account and no server-side copy, which also
+      means clearing your browser data clears your designs, so export anything
+      you want to keep. It will carry its own privacy notice when it launches.
+    </p>
+    <div class="card-actions" style="margin-top: 26px;">
+      <a id="pb-cta-products" data-attr="pb-cta-products" class="btn btn-primary" href="/#products">See the other tools</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <span class="disclaimer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
+        <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></line>
+      </svg>
+      Celadora Studios
+    </span>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/accessibility.html">Accessibility</a>
+    <button type="button" data-consent-settings>Cookie settings</button>
+  </footer>
+</div>
+
+</body>
+</html>

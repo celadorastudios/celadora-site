@@ -1,5 +1,5 @@
-/* Minimal static server for the checks. Not used in production — GitHub Pages
-   serves the repo directly — but the privacy and a11y checks need real HTTP
+/* Minimal static server for the checks. Not used in production (GitHub Pages
+   serves the repo directly) but the privacy and a11y checks need real HTTP
    because root-relative paths (/vendor/..., /privacy.html) don't resolve
    under file://. */
 import http from 'node:http';

@@ -49,6 +49,20 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm run check:privacy
 
+  gallery:
+    name: Gallery behaviour
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      # Timing-sensitive: the auto-advance assertions wait real seconds.
+      - run: npm run check:gallery
+        timeout-minutes: 6
+
   a11y:
     name: Accessibility
     runs-on: ubuntu-latest

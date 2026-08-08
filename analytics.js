@@ -8,7 +8,7 @@
  * the PostHog snippet still fetches array.js from PostHog's CDN as soon as
  * the page loads, which already discloses the visitor's IP address to a
  * third party before they have agreed to anything. So nothing PostHog-related
- * is loaded here until consent exists — no script tag, no connection, no
+ * is loaded here until consent exists: no script tag, no connection, no
  * cookie. Decline, and the visitor's browser never talks to PostHog at all.
  *
  * That means the decision has to live somewhere other than PostHog (it isn't
@@ -70,7 +70,7 @@
       api_host: POSTHOG_HOST,
       defaults: '2026-05-30',
       // No identify() call is ever made on this site, so with identified_only
-      // no person profile is created — anonymous event counts only.
+      // no person profile is created, so anonymous event counts only.
       person_profiles: 'identified_only',
       // Never record sessions. The privacy policy says so; make it true in
       // code rather than leaving it as a promise.
@@ -153,7 +153,7 @@
     if (accept) {
       writeConsent('granted');
       // If PostHog was loaded earlier this page-view and then withdrawn,
-      // loadPostHog() is a no-op — opt back in explicitly or "granted"
+      // loadPostHog() is a no-op, so opt back in explicitly or "granted"
       // would silently stay opted out until the next reload.
       if (loaded) {
         try { window.posthog.opt_in_capturing(); } catch (e) { /* best effort */ }
@@ -207,7 +207,7 @@
     // Both buttons take the SAME class. Under EDPB Guidelines 03/2022 an
     // accept button that is more prominent than the refuse button is a
     // deceptive pattern, and the privacy policy claims refusing is exactly as
-    // easy as agreeing — so they have to look identical, not merely both be
+    // easy as agreeing, so they have to look identical, not merely both be
     // present. Reject is also first in the DOM.
     var no = document.createElement('button');
     no.type = 'button';
