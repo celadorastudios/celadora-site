@@ -286,9 +286,18 @@ a:hover { color: var(--color-accent); }
   background: currentColor;
   flex-shrink: 0;
 }
+/* Three states, three shapes, so the distinction survives greyscale printing
+   and colour-blindness: round = shipped, diamond = beta, square = unreleased. */
 .status-available { color: #62d29a; }
+
+.status-beta { color: var(--color-accent-300); }
+.status-beta .dot {
+  border-radius: 1px;
+  transform: rotate(45deg);   /* diamond */
+}
+
 .status-building  { color: var(--color-accent-2); }
-.status-building .dot { border-radius: 1px; }   /* square: shape, not colour */
+.status-building .dot { border-radius: 1px; }   /* square */
 
 .grid-note {
   font-size: 14px;

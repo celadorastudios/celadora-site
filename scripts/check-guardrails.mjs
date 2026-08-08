@@ -231,6 +231,34 @@ for (const file of FILES) {
   });
 }
 
+/* ---------------------------------------------------------------- rule 4e
+ * The catalogue counter is prose, so nothing stops it drifting from the cards
+ * it counts. "2 tools" beside three cards is the kind of small lie a visitor
+ * notices immediately.
+ */
+{
+  const home = read('index.html');
+  const cards = (home.match(/<article class="product-card">/g) || []).length;
+  const counter = home.match(/<span class="count">\s*(\d+)\s+tools?/);
+  if (!counter) {
+    fail('product-count', 'index.html has no "<n> tools" counter to check against the cards');
+  } else if (Number(counter[1]) !== cards) {
+    fail('product-count', `index.html says ${counter[1]} tools but renders ${cards} product cards`);
+  }
+
+  // Each card needs a status, and only from the set site.css can actually style.
+  const STATUSES = ['status-available', 'status-beta', 'status-building'];
+  const chips = home.match(/class="status ([a-z-]+)"/g) || [];
+  if (chips.length !== cards) {
+    fail('product-status', `${cards} product cards but ${chips.length} status chips`);
+  }
+  for (const chip of chips) {
+    const cls = chip.match(/status ([a-z-]+)/)[1];
+    if (!STATUSES.includes(cls)) fail('product-status', `unknown status chip "${cls}"`);
+    if (!read('site.css').includes('.' + cls)) fail('product-status', `.${cls} has no style in site.css`);
+  }
+}
+
 /* PostHog must never be initialised outside the consent gate. */
 for (const file of FILES.filter((f) => f !== 'analytics.js')) {
   if (/posthog\.init\s*\(/.test(read(file))) {
