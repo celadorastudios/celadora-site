@@ -184,7 +184,51 @@ try {
     await context.close();
   }
 
-  // 9. The contact address must survive with JavaScript disabled, because it is the
+  // 9. The header must not move between pages.
+  //
+  //    It used to: the product page inherited the design system's .nav with
+  //    8.4px of vertical padding against the studio pages' 20px, and carried
+  //    an extra button, while the legal pages sat in the 760px prose column
+  //    instead of the 1200px one, shifting the logo sideways by 188px. Every
+  //    page now renders the same nav markup, and this measures it rather than
+  //    trusting that it stays that way.
+  {
+    const context = browser.createBrowserContext
+      ? await browser.createBrowserContext()
+      : await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
+    await page.setViewport({ width: 1440, height: 900 });
+
+    const shots = [];
+    for (const url of PAGES) {
+      await page.goto(BASE + url, { waitUntil: 'networkidle2' });
+      shots.push(await page.evaluate(() => {
+        const nav = document.querySelector('nav.site-nav');
+        if (!nav) return null;
+        const brand = nav.querySelector('.brand');
+        const nb = nav.getBoundingClientRect(), bb = brand.getBoundingClientRect();
+        return {
+          navH: nb.height.toFixed(1),
+          brandX: bb.x.toFixed(1),
+          brandY: bb.y.toFixed(1),
+          labels: [...nav.querySelectorAll('a')].map((a) => a.textContent.trim()).join('|')
+        };
+      }));
+    }
+
+    check('every page has the shared nav', shots.every(Boolean));
+    if (shots.every(Boolean)) {
+      for (const key of ['navH', 'brandX', 'brandY', 'labels']) {
+        const values = [...new Set(shots.map((s) => s[key]))];
+        check(`nav ${key} is identical on all pages`, values.length === 1,
+              values.length === 1 ? String(values[0]).slice(0, 48) : values.join(' vs '));
+      }
+    }
+    await page.close();
+    await context.close();
+  }
+
+  // 10. The contact address must survive with JavaScript disabled, because it is the
   //    channel for GDPR and CCPA rights requests.
   {
     const ctx = browser.createBrowserContext ? await browser.createBrowserContext() : await browser.createIncognitoBrowserContext();

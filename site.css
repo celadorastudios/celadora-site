@@ -62,7 +62,19 @@ a:hover { color: var(--color-accent); }
 .site-nav .brand:hover { color: var(--color-accent); }
 .site-nav a { color: color-mix(in srgb, var(--color-text) 78%, transparent); }
 .site-nav a:hover { color: var(--color-accent); }
-.site-nav a.btn { color: var(--color-text); }
+
+/* Current page. Marked with aria-current so it is announced, not only seen,
+   and styled with weight and an underline as well as colour so it does not
+   depend on colour alone (WCAG 1.4.1). Both cues are metrics-neutral: the
+   nav must be the same height on every page or it jumps on navigation. */
+.site-nav a[aria-current="page"] {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+}
+.site-nav .brand[aria-current="page"] { text-decoration: none; }
 
 /* ----------------------------------------------------------------- hero */
 .hero { padding: 96px 0 72px; }

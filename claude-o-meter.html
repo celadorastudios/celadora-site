@@ -46,6 +46,7 @@
   <script src="_ds/nocturne-93951b28-3eee-4280-b6bd-1dd1a34d1cd8/_ds_bundle.js"></script>
   <link rel="stylesheet" href="/vendor/phosphor/regular/style.css">
   <link rel="stylesheet" href="/vendor/phosphor/fill/style.css">
+  <link rel="stylesheet" href="/site.css">
   <style>
     body {
       margin: 0;
@@ -67,19 +68,22 @@
   </style>
 </helmet>
 
-<nav class="nav" style="padding-inline: max(clamp(20px, 5vw, 72px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 72px)));">
-  <a class="nav-brand" href="/" style="display: inline-flex; align-items: center; gap: 10px; color: var(--color-text); text-decoration: none;">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
-      <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round"></line>
-      <circle cx="12" cy="12" r="1.5" fill="var(--color-accent)"></circle>
-    </svg>
-    Celadora Studios
-  </a>
-  <a id="nav-products-link" data-attr="nav-products-link" href="/#products">All products</a>
-  <a id="nav-github-link" data-attr="nav-github-link" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener">GitHub</a>
-  <a id="nav-cta-get-app" data-attr="nav-cta-get-app" class="btn btn-primary" href="https://github.com/deklin/claude-o-meter" target="_blank" rel="noopener" style="text-decoration: none;">Get the app</a>
-</nav>
+<div class="wrap">
+  <nav class="site-nav">
+    <a class="brand" href="/">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="42.4 14.1" transform="rotate(45 12 12)"></circle>
+        <line x1="12" y1="12" x2="17.2" y2="8.4" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round"></line>
+        <circle cx="12" cy="12" r="1.5" fill="var(--color-accent)"></circle>
+      </svg>
+      Celadora Studios
+    </a>
+    <a id="nav-products" data-attr="nav-products" href="/#products">Products</a>
+    <a id="nav-com" data-attr="nav-com" href="/claude-o-meter.html" aria-current="page">Claude-o-Meter</a>
+    <a id="nav-partsbin" data-attr="nav-partsbin" href="/partsbin.html">partsbin</a>
+    <a id="nav-github" data-attr="nav-github" href="https://github.com/deklin" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</div>
 
 <main style="display: block; max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
 
