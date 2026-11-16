@@ -629,3 +629,11 @@ html { color-scheme: dark; }
 /* Four screenshots fit the 1072px content width on desktop; narrower screens scroll sideways. */
 .phone-row { gap: clamp(14px, 2vw, 24px); }
 .phone-row .shot { flex: 0 0 min(248px, 68%); }
+
+/* Pricing rows: long descriptions need a fixed name column and left-aligned
+   text, not the space-between layout the short spec rows use. */
+.spec-plans { max-width: 720px; margin-bottom: 0; font-size: 15px; }
+.spec-plans li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 24px; align-items: baseline; padding: 14px 0; }
+.spec-plans li > span:first-child { color: var(--color-text); font-weight: 600; }
+.spec-plans .label { text-align: left; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 72%, transparent); }
+@media (max-width: 560px) { .spec-plans li { grid-template-columns: 1fr; } }
