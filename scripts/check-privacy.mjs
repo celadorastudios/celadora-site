@@ -18,7 +18,8 @@ const BASE = `http://localhost:${PORT}`;
 const CONSENT_KEY = 'celadora-analytics-consent';
 
 const THIRD_PARTY = [/posthog/i, /unpkg\.com/i, /fonts\.googleapis\.com/i, /fonts\.gstatic\.com/i];
-const PAGES = ['/', '/claude-o-meter.html', '/partsbin.html', '/privacy.html', '/terms.html', '/accessibility.html'];
+const PAGES = ['/', '/claude-o-meter.html', '/partsbin.html', '/privacy.html', '/terms.html', '/accessibility.html',
+  '/regleur.html', '/regleur/privacy.html', '/regleur/support.html', '/regleur/terms.html'];
 
 const results = [];
 const check = (name, ok, detail = '') => {

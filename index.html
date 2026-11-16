@@ -4,20 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Celadora Studios · small tools that tell you the truth</title>
-<meta name="description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend; partsbin designs printable parts from parameters.">
+<meta name="description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend, Régleur measures mechanical watches, partsbin designs printable parts.">
 <link rel="canonical" href="https://celadora.net/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Celadora Studios">
 <meta property="og:url" content="https://celadora.net/">
 <meta property="og:title" content="Celadora Studios · small tools that tell you the truth">
-<meta property="og:description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend; partsbin designs printable parts from parameters.">
+<meta property="og:description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend, Régleur measures mechanical watches, partsbin designs printable parts.">
 <meta property="og:image" content="https://celadora.net/assets/og-celadora.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Celadora Studios. Small tools that tell you the truth about your own work.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Celadora Studios · small tools that tell you the truth">
-<meta name="twitter:description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend; partsbin designs printable parts from parameters.">
+<meta name="twitter:description" content="Celadora Studios builds small, local-first tools for developers and makers. Claude-o-Meter tracks your Claude Code spend, Régleur measures mechanical watches, partsbin designs printable parts.">
 <meta name="twitter:image" content="https://celadora.net/assets/og-celadora.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -65,6 +65,15 @@
     },
     {
       "@type": "SoftwareApplication",
+      "name": "Régleur",
+      "url": "https://celadora.net/regleur.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "iOS, iPadOS",
+      "description": "A timegrapher for mechanical watches: rate, beat error, beat rate and an amplitude estimate from the iPhone microphone, plus collection and service history. In testing.",
+      "publisher": { "@id": "https://celadora.net/#studio" }
+    },
+    {
+      "@type": "SoftwareApplication",
       "name": "partsbin",
       "url": "https://partsbin.celadora.net/",
       "sameAs": "https://celadora.net/partsbin.html",
@@ -80,6 +89,7 @@
 <!-- Analytics + EU consent gate. PostHog starts opted out; analytics.js is the
      only thing that turns it on, and only if the visitor agrees. -->
 <script src="analytics.js"></script>
+<script src="contact.js"></script>
 </head>
 <body>
 
@@ -97,6 +107,7 @@
     </a>
     <a id="nav-products" data-attr="nav-products" href="/#products">Products</a>
     <a id="nav-com" data-attr="nav-com" href="/claude-o-meter.html">Claude-o-Meter</a>
+    <a id="nav-regleur" data-attr="nav-regleur" href="/regleur.html">Régleur</a>
     <a id="nav-partsbin" data-attr="nav-partsbin" href="/partsbin.html">partsbin</a>
     <a id="nav-github" data-attr="nav-github" href="https://github.com/celadorastudios" target="_blank" rel="noopener">GitHub</a>
   </nav>
@@ -118,13 +129,14 @@
   <section id="products">
     <div class="section-head">
       <h2>What we make</h2>
-      <span class="count">2 tools · both live</span>
+      <span class="count">3 tools · 2 live, 1 in testing</span>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid showcases">
 
       <!-- ------------------------------------------------ Claude-o-Meter -->
       <article class="product-card">
+        <div class="card-body">
         <div class="card-top">
           <span class="mark" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -160,10 +172,107 @@
           <a id="card-com-details" data-attr="card-com-details" class="btn btn-primary" href="/claude-o-meter.html">What it does</a>
           <a id="card-com-github" data-attr="card-com-github" class="btn btn-ghost" href="https://github.com/celadorastudios/claude-o-meter" target="_blank" rel="noopener">GitHub</a>
         </div>
+        </div>
+        <div class="card-visual" role="img" aria-label="Claude-o-Meter's menu-bar dropdown, shown with sample data: 42 cents today, 812 dollars this month, a stacked daily chart by model under a 50 dollar daily alert line, and insight cards on cache efficiency and model mix.">
+          <div class="com-mock" aria-hidden="true">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 20 20"><rect x="2" y="5" width="16" height="10" rx="2" fill="#d97757"></rect><rect x="5.5" y="8" width="2.5" height="2.5" fill="#1a1108"></rect><rect x="12" y="8" width="2.5" height="2.5" fill="#1a1108"></rect><rect x="4" y="2.5" width="2" height="3" fill="#d97757"></rect><rect x="14" y="2.5" width="2" height="3" fill="#d97757"></rect></svg>
+              <span style="font-weight: 600; font-size: 15px; color: var(--color-text);">Claude-o-Meter</span>
+              <span style="margin-left: auto; font-size: 12px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">0.6.x</span>
+            </div>
+            <div class="com-totals">
+              <div><div class="com-label">Today</div><div style="font-size: 22px; font-weight: 600; margin-top: 4px;">$0.42</div></div>
+              <div class="com-sep"><div class="com-label">Month</div><div style="font-size: 15px; font-weight: 600; margin-top: 8px;">$812.40</div></div>
+              <div class="com-sep"><div class="com-label">30 days</div><div style="font-size: 15px; font-weight: 600; margin-top: 8px;">$2,347.90</div></div>
+            </div>
+            <div style="position: relative; margin-top: 16px;">
+              <div style="position: absolute; left: 0; right: 0; bottom: 22%; border-top: 1.5px dashed #e0524f; z-index: 1;"></div>
+              <span style="position: absolute; left: 4px; bottom: calc(22% + 6px); z-index: 2; font-size: 10.5px; font-weight: 600; color: #fff; background: #e0524f; border-radius: 999px; padding: 2px 8px;">Daily alert · $50.00</span>
+              <div class="com-bars">
+                <div><i style="background:#e8823d;height:14px"></i><i style="background:#2f7cf6;height:8px"></i></div>
+                <div><i style="background:#e8823d;height:30px"></i><i style="background:#2f7cf6;height:10px"></i></div>
+                <div><i style="background:#e8823d;height:62px"></i><i style="background:#2f7cf6;height:14px"></i></div>
+                <div><i style="background:#e8823d;height:70px"></i><i style="background:#2f7cf6;height:12px"></i></div>
+                <div><i style="background:#e8823d;height:6px"></i><i style="background:#34c26b;height:4px"></i></div>
+                <div><i style="background:#e8823d;height:96px"></i><i style="background:#2f7cf6;height:14px"></i></div>
+                <div><i style="background:#e8823d;height:48px"></i><i style="background:#2f7cf6;height:16px"></i></div>
+                <div><i style="background:#e8823d;height:26px"></i><i style="background:#2f7cf6;height:10px"></i></div>
+                <div><i style="background:#2f7cf6;height:20px"></i></div>
+                <div><i style="background:#e8823d;height:34px"></i><i style="background:#2f7cf6;height:12px"></i></div>
+                <div><i style="background:#e8823d;height:66px"></i><i style="background:#2f7cf6;height:10px"></i></div>
+                <div><i style="background:#e8823d;height:42px"></i><i style="background:#2f7cf6;height:8px"></i></div>
+              </div>
+            </div>
+            <div class="com-insight" style="background: color-mix(in srgb, #34c26b 7%, transparent);"><b style="color: #4ed488;">● Cache efficiency at 97%</b><span>Cached tokens cost ~10× less than fresh input. Your workflow is well optimised.</span></div>
+            <div class="com-insight" style="background: color-mix(in srgb, #e5a54b 7%, transparent);"><b style="color: #e5a54b;">● Opus is 71% of 7-day spend</b><span>For everyday coding, Sonnet delivers comparable results at ~6× lower cost.</span></div>
+            <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid color-mix(in srgb, white 8%, transparent); font-size: 12.5px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Updated 12 sec ago · shown with sample data</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- --------------------------------------------------------- Régleur -->
+      <article class="product-card">
+        <div class="card-body">
+          <div class="card-top">
+            <span class="mark" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8.6" stroke="var(--color-accent)" stroke-width="1.7"></circle>
+                <path d="M12 6.6V12l3.4 2.2" stroke="var(--color-accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M3 12h2.2M18.8 12H21" stroke="var(--color-accent)" stroke-width="1.7" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            <div>
+              <h3><a class="card-link" id="card-rg-title" data-attr="card-rg-title" href="/regleur.html">Régleur</a></h3>
+              <p class="tagline">A timegrapher for mechanical watches</p>
+            </div>
+            <span class="status status-building">
+              <span class="dot" aria-hidden="true"></span>In testing
+            </span>
+          </div>
+
+          <p class="blurb">
+            Rest a mechanical watch against your iPhone and Régleur listens to it
+            tick: rate in seconds a day, beat error, beat rate and an amplitude
+            estimate, explained in plain English. Then it keeps your collection
+            and its service history in one calm place.
+          </p>
+
+          <ul class="spec">
+            <li><span class="label">Platform</span><span>iPhone and iPad</span></li>
+            <li><span class="label">Price</span><span>Free, optional Pro subscription</span></li>
+            <li><span class="label">Audio</span><span>Analyzed live, never recorded</span></li>
+            <li><span class="label">Your data</span><span>Stays on your device</span></li>
+          </ul>
+
+          <div class="card-actions">
+            <a id="card-rg-details" data-attr="card-rg-details" class="btn btn-primary" href="/regleur.html">What it does</a>
+            <a id="card-rg-privacy" data-attr="card-rg-privacy" class="btn btn-ghost" href="/regleur/privacy.html">Privacy</a>
+          </div>
+          <p class="note">In testing now, coming to the App Store.</p>
+        </div>
+        <div class="card-visual">
+          <div class="phone-pair">
+            <svg class="phone" viewBox="0 0 1320 2868" role="img" aria-label="Placeholder for the Measure screen screenshot">
+              <rect x="10" y="10" width="1300" height="2848" rx="150" fill="#121420" stroke="#595d6c" stroke-width="10" stroke-dasharray="44 30"></rect>
+              <rect x="520" y="70" width="280" height="70" rx="35" fill="#292b31"></rect>
+              <text x="660" y="1340" text-anchor="middle" fill="#9184d9" font-family="Inter, system-ui, sans-serif" font-size="66" letter-spacing="6">SCREENSHOT</text>
+              <text x="660" y="1460" text-anchor="middle" fill="#e9e9ed" font-family="Inter, system-ui, sans-serif" font-size="96">Measure</text>
+              <text x="660" y="1580" text-anchor="middle" fill="#9397ab" font-family="Inter, system-ui, sans-serif" font-size="56">1320 x 2868</text>
+            </svg>
+            <svg class="phone" viewBox="0 0 1320 2868" role="img" aria-label="Placeholder for the Collection screen screenshot">
+              <rect x="10" y="10" width="1300" height="2848" rx="150" fill="#121420" stroke="#595d6c" stroke-width="10" stroke-dasharray="44 30"></rect>
+              <rect x="520" y="70" width="280" height="70" rx="35" fill="#292b31"></rect>
+              <text x="660" y="1340" text-anchor="middle" fill="#9184d9" font-family="Inter, system-ui, sans-serif" font-size="66" letter-spacing="6">SCREENSHOT</text>
+              <text x="660" y="1460" text-anchor="middle" fill="#e9e9ed" font-family="Inter, system-ui, sans-serif" font-size="96">Collection</text>
+              <text x="660" y="1580" text-anchor="middle" fill="#9397ab" font-family="Inter, system-ui, sans-serif" font-size="56">1320 x 2868</text>
+            </svg>
+          </div>
+        </div>
       </article>
 
       <!-- ------------------------------------------------------- partsbin -->
       <article class="product-card">
+        <div class="card-body">
         <div class="card-top">
           <span class="mark" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -199,6 +308,13 @@
           <a id="card-pb-details" data-attr="card-pb-details" class="btn btn-ghost" href="/partsbin.html">What it does</a>
         </div>
         <p class="note">In beta: it works and the exports are real, but expect rough edges.</p>
+        </div>
+        <div class="card-visual">
+          <figure class="shot">
+            <img src="/assets/partsbin-threaded-fastener.webp" width="2560" height="1660" loading="lazy" decoding="async"
+                 alt="The partsbin editor: a socket-cap screw with a real helical thread rendered as a solid, beside the panel that sets its head style, drive, thread size, pitch and length.">
+          </figure>
+        </div>
       </article>
 
     </div>
@@ -207,53 +323,14 @@
     </p>
   </section>
 
-  <section id="studio" class="studio">
-    <span class="kicker">The studio</span>
-    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 30px; line-height: 38px; letter-spacing: -0.012em; margin: 0; max-width: 22ch;">
-      Different problems, same standards
-    </h2>
-    <p style="font-size: 16px; line-height: 28px; max-width: 62ch; margin: 20px 0 0; color: color-mix(in srgb, var(--color-text) 82%, transparent);">
-      These tools have nothing to do with each other. One watches an API bill,
-      the other cuts printable geometry. What they share is that we use them
-      ourselves, daily, in the work and the hobbies they came out of. Each one
-      exists because nothing else did the job the way we wanted it done, and
-      there will be more for the same reason.
+  <section id="hello" class="closing">
+    <h2>Got a problem worth a small tool?</h2>
+    <p>
+      Questions about an app, a bug report, or an idea for the next one:
+      email <span data-contact-email>hello at celadora.net</span>.
+      If one of these tools saves you time, you can also support the studio on
+      <a id="home-cta-kofi" data-attr="home-cta-kofi" href="https://ko-fi.com/celadorastudios" target="_blank" rel="noopener">Ko-fi</a>.
     </p>
-
-    <div class="principles">
-      <div>
-        <h3>It runs where you are</h3>
-        <p>
-          Your work stays on your machine or in your browser. There is no
-          server holding your spend history or your designs, because there is
-          no server.
-        </p>
-      </div>
-      <div>
-        <h3>No account, no funnel</h3>
-        <p>
-          Nothing to sign up for and nothing to cancel. Analytics are off until
-          you say otherwise, and saying no means we never contact them at all.
-        </p>
-      </div>
-      <div>
-        <h3>You keep the output</h3>
-        <p>
-          A CSV, a STEP file, a number you can check against your invoice.
-          Everything these tools produce is yours in a format that outlives
-          them.
-        </p>
-      </div>
-      <div>
-        <h3>Honest about the limits</h3>
-        <p>
-          Estimates are labelled as estimates, gaps are written down, and where
-          a tool is not good enough yet it says so. Read the
-          <a href="/accessibility.html">accessibility notes</a> for the version
-          of that we can't hide from.
-        </p>
-      </div>
-    </div>
   </section>
 
 </main>

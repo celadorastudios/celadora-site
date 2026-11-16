@@ -14,6 +14,10 @@
     "http://localhost:8791/partsbin.html",
     "http://localhost:8791/privacy.html",
     "http://localhost:8791/terms.html",
-    "http://localhost:8791/accessibility.html"
+    "http://localhost:8791/accessibility.html",
+    "http://localhost:8791/regleur.html",
+    "http://localhost:8791/regleur/privacy.html",
+    "http://localhost:8791/regleur/support.html",
+    "http://localhost:8791/regleur/terms.html"
   ]
 }
