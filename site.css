@@ -609,3 +609,23 @@ a:hover { color: var(--color-accent); }
   font-size: 15.5px; line-height: 28px; margin: 0; max-width: 52ch;
   color: color-mix(in srgb, var(--color-text) 78%, transparent);
 }
+
+/* Régleur real screenshots inside the phone row and pair. */
+.phone-row .shot img.phone { display: block; width: 100%; height: auto; aspect-ratio: 603 / 1311; border-radius: 28px; border: 1px solid var(--color-neutral-700); box-shadow: var(--shadow-md); }
+.phone-pair img.phone { border: 1px solid var(--color-neutral-700); object-fit: cover; }
+
+/* Scrollbars match the Nocturne dark theme: slim, muted track, accent on hover.
+   Firefox reads scrollbar-color/width; Chromium and Safari read the -webkit rules. */
+html, .phone-row { scrollbar-width: thin; scrollbar-color: var(--color-neutral-700) transparent; }
+html { color-scheme: dark; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-neutral-700); border-radius: 999px; border: 2px solid var(--color-bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+::-webkit-scrollbar-corner { background: transparent; }
+.phone-row::-webkit-scrollbar { height: 8px; }
+.phone-row::-webkit-scrollbar-thumb { border: 0; }
+
+/* Four screenshots fit the 1072px content width on desktop; narrower screens scroll sideways. */
+.phone-row { gap: clamp(14px, 2vw, 24px); }
+.phone-row .shot { flex: 0 0 min(248px, 68%); }
