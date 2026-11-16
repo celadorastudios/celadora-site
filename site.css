@@ -553,7 +553,7 @@ a:hover { color: var(--color-accent); }
 .com-insight span { color: color-mix(in srgb, var(--color-text) 75%, transparent); }
 
 /* Régleur: a pair of phone frames sized for 6.9-inch iPhone screenshots
-   (1320 x 2868). Swap each <svg class="phone"> for an <img class="phone">. */
+   (1320 x 2868). Real screenshots are <img class="phone"> (603 x 1311). */
 .phone-pair { display: flex; gap: clamp(12px, 2vw, 22px); align-items: flex-start; justify-content: center; width: 100%; }
 .phone-pair .phone {
   width: min(42%, 210px);
