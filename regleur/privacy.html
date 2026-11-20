@@ -120,7 +120,7 @@
 
       <section id="on-device" aria-labelledby="on-device-title">
         <h2 id="on-device-title">3. Information that stays on your device</h2>
-        <p>Régleur works with the following information. All of it is processed and stored only on your device (and, if you choose, in your own backups or iCloud as described in <a href="#apple">section 5</a>). We do not receive it and cannot access it.</p>
+        <p>Régleur works with the following information. All of it is processed and stored only on your device (and, as described in <a href="#apple">section 5</a>, in your own device backups and, for four display settings, in your own iCloud). We do not receive it and cannot access it.</p>
 
         <h3 id="microphone">3.1 Microphone audio</h3>
         <p>When you start a measurement, Régleur asks for permission to use the microphone. It reads the sound in short pieces, analyzes them in your device's memory to find the watch's ticks, and then discards them. Régleur never writes audio to a file and never sends it anywhere. Measuring stops when you stop it or leave the screen.</p>
@@ -141,8 +141,8 @@
 
         <h3 id="device-other">3.4 Settings, reminders and device details</h3>
         <ul>
-          <li><strong>Settings and preferences</strong> (such as haptics, measurement length and view options) are stored on your device.</li>
-          <li><strong>Free-tier count.</strong> The number of measurement sessions used this month is counted on your device.</li>
+          <li><strong>Settings and preferences</strong> (such as haptics, measurement length and view options) are stored on your device and, unless you switch settings sync off, in your own iCloud (<a href="#icloud">section 5.2</a>).</li>
+          <li><strong>Free-tier count.</strong> The measurement sessions you have used this month are counted on your device, in a record kept in the device's secure keychain for this device only (it is not synced or sent to us). Because the keychain can outlast the app, deleting and reinstalling Régleur may not reset the count.</li>
           <li><strong>Reminders.</strong> Service and measurement reminders are local notifications scheduled by your device. iOS asks your permission before Régleur can show them. No reminder data is sent to us.</li>
           <li><strong>Device model.</strong> Régleur may check your device model on the device itself to show where its microphone is. This is not sent anywhere.</li>
           <li><strong>Diagnostic messages.</strong> If something fails, the app may write a short technical error message to your device's system log. It contains no collection data and stays on your device unless you choose to share diagnostics with Apple (<a href="#apple-analytics">section 5.4</a>).</li>
@@ -179,7 +179,7 @@
         <p>Apple gives us sales and financial reports for running the business, such as the number of downloads and subscriptions, renewals, refunds, proceeds and the country or region of sale. These reports are aggregated and do not tell us who you are. Refund requests go to Apple, which decides them.</p>
 
         <h3 id="icloud">5.2 iCloud sync and device backups</h3>
-        <p>Régleur does not currently sync through iCloud. If a future version offers iCloud sync and you turn it on, your collection will be stored in the private database of your own iCloud account, using Apple's CloudKit service. Apple stores that data under its terms. We, as the developer, cannot access the contents of your private iCloud database. You can stop syncing and delete the synced copy in your device's iCloud settings. We will update this policy before such a feature is released.</p>
+        <p><strong>Settings sync.</strong> Régleur can sync four display preferences between your devices: appearance, startup animation, haptics and the Simple or Detailed Measure view. This uses Apple's iCloud key-value storage in your own iCloud account when you are signed in to iCloud. It is on by default and you can switch it off in Régleur's Settings, iCloud. Your watches, photos, measurements, notes and audio are not synced. <strong>Collection sync.</strong> Régleur does not currently sync your collection through iCloud. If a future version offers it and you turn it on, your collection will be stored in the private database of your own iCloud account, using Apple's CloudKit service. Apple stores that data under its terms. We, as the developer, cannot access the contents of your private iCloud database. You can stop syncing and delete the synced copy in your device's iCloud settings. We will update this policy before such a feature is released.</p>
         <p>Your device backups (iCloud Backup or a backup to your computer) may include Régleur's data, according to your own backup settings.</p>
 
         <h3 id="reviews">5.3 Ratings, reviews and beta testing</h3>
@@ -250,7 +250,8 @@
         <h2 id="choices-title">12. Your rights and choices</h2>
         <h3 id="in-app-control">12.1 Control inside the app and on your device</h3>
         <ul>
-          <li>View, edit or export your collection in the app.</li>
+          <li>View and edit your collection in the app.</li>
+          <li>Switch settings sync off in Régleur's Settings, iCloud.</li>
           <li>Delete a watch, a photo or a reading in the app. Deleting the app removes everything it stored on the device.</li>
           <li>Turn microphone, camera and notification permissions on or off in the Settings app.</li>
           <li>Stop sharing diagnostics with developers in Settings, Privacy &amp; Security, Analytics &amp; Improvements.</li>
