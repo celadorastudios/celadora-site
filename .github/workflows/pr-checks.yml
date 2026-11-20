@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: '22'
       - run: node scripts/check-guardrails.mjs
+      - run: node scripts/asset-versions.mjs --check
 
   # This repo IS the website: GitHub Pages serves it verbatim, so committing
   # and publishing are the same event and there is no build step to strip
