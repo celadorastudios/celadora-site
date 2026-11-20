@@ -11,7 +11,7 @@
  *   node scripts/asset-versions.mjs           rewrite every ?v= to match the file
  *   node scripts/asset-versions.mjs --check   fail if any ?v= is missing or stale
  *
- * Run the first after editing any file in ASSETS. CI runs the second.
+ * Run the first after editing any tracked CSS, JS or image. CI runs the second.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,7 +23,14 @@ const CHECK = process.argv.includes('--check');
 
 /* Own, editable assets. Not vendor/ or _ds/ (pinned, versioned by path) and
    not support.js (generated, rarely changes; add it here if that stops being true). */
-const ASSETS = ['site.css', 'legal.css', 'analytics.js', 'contact.js', 'gallery.js'];
+const CODE_ASSETS = ['site.css', 'legal.css', 'analytics.js', 'contact.js', 'gallery.js'];
+/* Images in assets/ are cached for hours too, and replacing a screenshot keeps
+   its filename, so they get a hash as well. */
+const IMAGE_ASSETS = fs
+  .readdirSync(path.join(ROOT, 'assets'))
+  .filter((f) => /\.(jpe?g|png|webp)$/.test(f))
+  .map((f) => `assets/${f}`);
+const ASSETS = [...CODE_ASSETS, ...IMAGE_ASSETS];
 
 const hashOf = (file) =>
   crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, file))).digest('hex').slice(0, 8);
@@ -36,7 +43,7 @@ const pages = [
 ];
 
 /* (href|src)="/?name[?v=anything]" for each tracked asset */
-const names = ASSETS.map((a) => a.replace('.', '\\.')).join('|');
+const names = ASSETS.map((a) => a.replace(/\./g, '\\.')).join('|');
 const LINK = new RegExp(`((?:href|src)=")(/?)(${names})(?:\\?v=[^"]*)?(")`, 'g');
 
 const problems = [];

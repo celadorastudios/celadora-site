@@ -4,10 +4,10 @@ Static site for celadora.net: plain HTML, CSS and JS served verbatim by GitHub P
 
 ## Before you push (required)
 
-1. **After editing `site.css`, `legal.css`, `analytics.js`, `contact.js` or `gallery.js`, run `npm run assets:version`** and commit the result. It stamps a content hash into every link to those files (`site.css?v=8c075dae`).
-   - Why: Cloudflare caches CSS and JS for hours while HTML refreshes in minutes. New HTML with an old cached stylesheet renders unstyled (for example, images at full intrinsic size). A changed hash is a new URL, so every cache is bypassed.
+1. **After editing `site.css`, `legal.css`, `analytics.js`, `contact.js` or `gallery.js`, or adding or replacing any image in `assets/`, run `npm run assets:version`** and commit the result. It stamps a content hash into every link to those files (`site.css?v=8c075dae`, `regleur-measure.jpg?v=0032cc28`).
+   - Why: Cloudflare caches CSS, JS and images for hours while HTML refreshes in minutes. New HTML with an old cached stylesheet renders unstyled (for example, images at full intrinsic size), and a replaced image keeps showing the old one. A changed hash is a new URL, so every cache is bypassed.
    - CI fails the PR (Guardrails job) if any hash is missing or stale. Never hand-type a `?v=` value.
-   - A new tracked asset must be added to `ASSETS` in `scripts/asset-versions.mjs`.
+   - New CSS or JS files must be added to `CODE_ASSETS` in `scripts/asset-versions.mjs`; images in `assets/` are picked up automatically.
 2. Run `npm run check` (secrets, guardrails, asset versions, HTML, privacy, gallery, accessibility). Browser-based checks need Chrome: set `PUPPETEER_EXECUTABLE_PATH` to your Chrome binary if puppeteer's own download is missing.
 3. Preview locally with `npm run serve` (http://localhost:8791) and look at the page, not just the checks. Check the home page and the Régleur page at 1280 and 390 pixels wide.
 
