@@ -19,7 +19,11 @@ const PAGES = [
   'partsbin.html',
   'privacy.html',
   'terms.html',
-  'accessibility.html'
+  'accessibility.html',
+  'regleur.html',
+  'regleur/privacy.html',
+  'regleur/support.html',
+  'regleur/terms.html'
 ];
 
 const failures = [];
