@@ -54,7 +54,7 @@
 <main class="legal-wrap">
 
 <h1>Accessibility</h1>
-<p class="legal-updated">Last updated: 8 August 2026</p>
+<p class="legal-updated">Last updated: 15 November 2026</p>
 
 <p class="legal-lede">
   We want everyone to be able to use what we build. Accessibility here is an
@@ -100,12 +100,16 @@
     fluid sizing, and layouts reflow rather than clipping.
   </li>
   <li>
-    <strong>No motion traps.</strong> Nothing autoplays, flashes or moves
-    without you asking it to.
+    <strong>Motion you can stop.</strong> Nothing flashes. The partsbin
+    screenshot slideshow advances by itself every five seconds, unless your
+    device is set to reduce motion. It pauses while you hover over it or focus
+    it, and it has a Pause button.
   </li>
   <li>
-    <strong>Nothing loads from someone else's CDN.</strong> The typeface, icons
-    and scripts are served from this domain, so the site doesn't break when a
+    <strong>No third-party CDN for the site itself.</strong> The typeface, icons
+    and scripts are served from this domain, apart from two analytics scripts
+    (Cloudflare Web Analytics, which sets no cookies, and PostHog, which loads
+    only if you accept it). Nothing on the page depends on them, so the site doesn't break when a
     content delivery network is blocked, slow or unreachable, a common failure
     mode on restricted networks and with content blockers. The privacy, terms
     and accessibility pages are additionally plain HTML and work with
