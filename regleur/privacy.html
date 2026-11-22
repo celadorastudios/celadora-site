@@ -56,7 +56,7 @@
 <main id="main" class="legal-wrap">
 
 <h1>Régleur privacy policy</h1>
-<p class="legal-updated">Version 1.1 · Effective 21 November 2026 · Last updated: 21 November 2026</p>
+<p class="legal-updated">Version 1.2 · Effective 21 November 2026 · Last updated: 21 November 2026</p>
 
 <p class="legal-lede">
   Régleur is a collection and care app for mechanical watches, with a built-in timegrapher called Measure, made by Celadora Studios.
@@ -94,7 +94,7 @@
         <div class="legal-note">
           <p><strong>Régleur does not collect personal data.</strong> We do not operate any server that receives information from the app. There is no account, no advertising, no analytics or tracking code, and no third-party software development kit that collects data.</p>
           <p><strong>Audio stays on your device.</strong> Régleur listens to your watch through the microphone and analyzes the sound live, in memory. It never records, saves or uploads audio.</p>
-          <p><strong>Your collection stays on your device.</strong> Watches, photos, readings and notes you add are stored on your iPhone. We cannot see them.</p>
+          <p><strong>Your collection stays on your device.</strong> Watches, photos, readings and notes you add are stored on your iPhone. We cannot see them. If you turn on the optional iCloud backup, a copy is also kept in your own private iCloud account, which we cannot access.</p>
           <p><strong>Apple handles payments.</strong> Subscriptions are sold and billed by Apple. We never receive your name, email address or payment details from a purchase.</p>
           <p><strong>If this ever changes, you will know first.</strong> Before any new feature sends personal data off your device, we will update this policy, tell you in the app, and ask for your consent where the law requires it (see <a href="#changes">section 15</a>).</p>
         </div>
@@ -120,7 +120,7 @@
 
       <section id="on-device" aria-labelledby="on-device-title">
         <h2 id="on-device-title">3. Information that stays on your device</h2>
-        <p>Régleur works with the following information. All of it is processed and stored only on your device (and, as described in <a href="#apple">section 5</a>, in your own device backups and, for four display settings, in your own iCloud). We do not receive it and cannot access it.</p>
+        <p>Régleur works with the following information. All of it is processed and stored only on your device (and, as described in <a href="#apple">section 5</a>, in your own device backups and, for four display settings and the optional collection backup, in your own iCloud). We do not receive it and cannot access it.</p>
 
         <h3 id="microphone">3.1 Microphone audio</h3>
         <p>When you start a measurement, Régleur asks for permission to use the microphone. It reads the sound in short pieces, analyzes them in your device's memory to find the watch's ticks, and then discards them. Régleur never writes audio to a file and never sends it anywhere. Measuring stops when you stop it or leave the screen.</p>
@@ -137,7 +137,7 @@
         </ul>
 
         <h3 id="collection">3.3 Your collection</h3>
-        <p>Anything you type into Régleur stays on your device: watch names, brand, model, reference and serial numbers, movement details, notes, and purchase and service dates. Régleur Pro adds unlimited measurements, your whole collection active at once, full measurement history and Trends, service intervals and every photo backdrop; it does not change where your information is kept. Links you save to documents (such as a datasheet) are stored as text. Please avoid putting other people's personal information in notes.</p>
+        <p>Anything you type into Régleur stays on your device: watch names, brand, model, reference and serial numbers, movement details, notes, and purchase and service dates. If you turn on iCloud backup, a copy of your collection (watches, photos, readings and notes) is also stored in your own private iCloud account (<a href="#icloud">section 5.2</a>). Régleur Pro adds unlimited measurements, your whole collection active at once, full measurement history and Trends, service intervals and every photo backdrop; it does not change where your information is kept. Links you save to documents (such as a datasheet) are stored as text. Please avoid putting other people's personal information in notes.</p>
 
         <h3 id="device-other">3.4 Settings, reminders and device details</h3>
         <ul>
@@ -168,7 +168,7 @@
           <li>usage analytics, crash data or diagnostics from our own code (we include no analytics or crash-reporting software);</li>
           <li>payment card or bank details, which Apple handles.</li>
         </ul>
-        <p>We do not sell personal data, "share" it for cross-context behavioral advertising, show ads, or build profiles about you. Régleur does not track you as Apple defines tracking, so it does not show Apple's App Tracking Transparency prompt. Régleur does not make automated decisions about you that have legal or similarly significant effects. Our App Store privacy label is "Data Not Collected".</p>
+        <p>We do not sell personal data, "share" it for cross-context behavioral advertising, show ads, or build profiles about you. Régleur does not track you as Apple defines tracking, so it does not show Apple's App Tracking Transparency prompt. Régleur does not make automated decisions about you that have legal or similarly significant effects. Our App Store privacy label is "Data Not Collected". This stays accurate with iCloud backup on: the backup is stored in your own private iCloud account, and neither it nor anything in it is sent to, or readable by, us.</p>
       </section>
       <section id="apple" aria-labelledby="apple-title">
         <h2 id="apple-title">5. Information handled by Apple</h2>
@@ -179,7 +179,12 @@
         <p>Apple gives us sales and financial reports for running the business, such as the number of downloads and subscriptions, renewals, refunds, proceeds and the country or region of sale. These reports are aggregated and do not tell us who you are. Refund requests go to Apple, which decides them.</p>
 
         <h3 id="icloud">5.2 iCloud sync and device backups</h3>
-        <p><strong>Settings sync.</strong> Régleur can sync four display preferences between your devices: appearance, startup animation, haptics and the Simple or Detailed Measure view. This uses Apple's iCloud key-value storage in your own iCloud account when you are signed in to iCloud. It is on by default and you can switch it off in Régleur's Settings, iCloud. Your watches, photos, measurements, notes and audio are not synced. <strong>Collection sync.</strong> Régleur does not currently sync your collection through iCloud. If a future version offers it and you turn it on, your collection will be stored in the private database of your own iCloud account, using Apple's CloudKit service. Apple stores that data under its terms. We, as the developer, cannot access the contents of your private iCloud database. You can stop syncing and delete the synced copy in your device's iCloud settings. We will update this policy before such a feature is released.</p>
+        <p><strong>Settings sync.</strong> Régleur can sync four display preferences between your devices: appearance, startup animation, haptics and the Simple or Detailed Measure view. This uses Apple's iCloud key-value storage in your own iCloud account when you are signed in to iCloud. It is on by default and you can switch it off in Régleur's Settings, iCloud. Your audio is never synced.</p>
+        <p><strong>Collection backup and restore.</strong> Régleur can back up your collection (watches, photos, readings and notes) to the private database of your own iCloud account, using Apple's CloudKit service, so you can get it back after reinstalling Régleur or moving to a new iPhone. It is optional and off until you turn it on in Régleur's Settings, iCloud, and it needs you to be signed in to iCloud. Apple stores the backup under its terms. We, as the developer, cannot access, read or download the contents of your private iCloud database, and nothing is sent to us, so we do not collect it. Audio is never part of a backup.</p>
+        <p><strong>Turning it off and deleting it.</strong> Switch Back Up Collection off in Régleur's Settings, iCloud. You can see and delete individual backups in Régleur's Settings, iCloud, Backups in iCloud. To remove all of it, open your iPhone's iCloud storage settings (Settings, then your name, then iCloud), choose Régleur, and delete its data.</p>
+        <p><strong>Finding a backup after a reinstall.</strong> If you reinstall Régleur or set up a new iPhone, and your collection is empty, Régleur looks in your own private iCloud for a Régleur backup and, if it finds one, offers to restore it. This check only reads: it does not upload anything, you do not need to have turned backup on first, and nothing about it reaches us. If you are not signed in to iCloud or no backup exists, nothing happens.</p>
+
+      <p><strong>Restoring.</strong> A restore only ever adds to your collection. It never overwrites or merges into watches that are already on your iPhone, and it asks before it adds anything. If a backup overlaps a collection that is already on the iPhone, Régleur declines and tells you how to proceed (delete and reinstall Régleur, which leaves your backups in iCloud untouched).</p>
         <p>Your device backups (iCloud Backup or a backup to your computer) may include Régleur's data, according to your own backup settings.</p>
 
         <h3 id="reviews">5.3 Ratings, reviews and beta testing</h3>
@@ -251,7 +256,7 @@
         <h3 id="in-app-control">12.1 Control inside the app and on your device</h3>
         <ul>
           <li>View and edit your collection in the app.</li>
-          <li>Switch settings sync off in Régleur's Settings, iCloud.</li>
+          <li>Switch settings sync and collection backup off in Régleur's Settings, iCloud, and delete backups there or in your iPhone's iCloud storage settings.</li>
           <li>Delete a watch, a photo or a reading in the app. Deleting the app removes everything it stored on the device.</li>
           <li>Turn microphone and camera permissions on or off in the Settings app.</li>
           <li>Stop sharing diagnostics with developers in Settings, Privacy &amp; Security, Analytics &amp; Improvements.</li>
@@ -302,7 +307,7 @@
 
       <section id="changes" aria-labelledby="changes-title">
         <h2 id="changes-title">15. Future features and changes to this policy</h2>
-        <p>Today Régleur sends nothing about you to us. We may in future offer features that need information to leave your device, for example optional iCloud sync, optional sign-in, crash reporting, or optional sharing of anonymous measurement results to build community accuracy statistics. We are telling you now so that there are no surprises. Our promises:</p>
+        <p>Today Régleur sends nothing about you to us. We may in future offer features that need information to leave your device, for example optional sign-in, crash reporting, or optional sharing of anonymous measurement results to build community accuracy statistics. We are telling you now so that there are no surprises. Our promises:</p>
         <ol>
           <li><strong>Policy first.</strong> Before any new collection of personal data starts, we will publish an updated version of this policy describing what is collected, why, who receives it, how long it is kept and your choices. We will update the App Store privacy label at the same time.</li>
           <li><strong>Notice in advance.</strong> We will tell you about material changes in the app and on this page before they take effect. Where a change affects information we already hold about you, we will give at least 30 days' notice where practical.</li>
@@ -334,6 +339,7 @@
         <table class="legal-table">
             <thead><tr><th scope="col">Version</th><th scope="col">Effective</th><th scope="col">What changed</th></tr></thead>
             <tbody>
+              <tr><td>1.2</td><td>21 November 2026</td><td>Added optional iCloud backup and restore of your collection to your own private iCloud account (off until you turn it on), and the read-only check for a backup after a reinstall. Nothing is sent to us.</td></tr>
               <tr><td>1.1</td><td>21 November 2026</td><td>Corrected accuracy: the app is for iPhone only; described what Régleur Pro contains; reminders and exports are marked as possible later features.</td></tr>
               <tr><td>1.0</td><td>20 November 2026</td><td>First published version.</td></tr>
             </tbody>
